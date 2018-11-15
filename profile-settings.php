@@ -1,3 +1,108 @@
+ <?php
+session_start();
+require 'common/DBConnect.php';
+$msg    = '';
+$result = false;
+if (isset($_POST['btnsubmit'])) {
+    try {
+        $result = insert_user();
+        display_form();
+    }
+    catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+} else {
+    display_form();
+}
+
+
+function GenerateRandomId()
+{
+    global $res;
+    $random_id_length = 7;
+    $stamp            = date("ymd");
+    $rnd_id           = uniqid(rand(), 1);
+    $rnd_id           = strip_tags(stripslashes($rnd_id));
+    $rnd_id           = str_replace(".", "", $rnd_id);
+    $rnd_id           = strrev(str_replace("/", "", $rnd_id));
+    $rnd_id           = substr($rnd_id, 0, $random_id_length);
+    return "MVC$stamp$rnd_id";
+}
+
+
+function insert_user()
+{
+    global $pdo, $msg;
+    $AgentId           = $_POST['AgentId'];
+    $CompanyName       = $_POST['CompanyName'];
+    $AddressLine1      = $_POST['AddressLine1'];
+    $AddressLine2      = $_POST['AddressLine2'];
+    $AddressLine3      = $_POST['AddressLine3'];
+    $ContactPerson     = $_POST['ContactPerson'];
+    $PhoneNo           = $_POST['PhoneNo'];
+    $Mobile            = $_POST['Mobile'];
+    $Email             = $_POST['Email'];
+    $Latitude          = $_POST['Latitude'];
+    $Longitude         = $_POST['Longitude'];
+    $Status            = $_POST['Status'];
+    $imagename         = $_FILES['image']['name'];
+    $imagedata         = ($imagename!=NULL || $imagename !="")?file_get_contents($_FILES['image']['tmp_name']):NULL;
+    $imagetype         = $_FILES['image']['type'];
+    $CompanyId         = GenerateRandomId();
+    $statusUpdatedBy   = "Admin"; //from session;
+    $statusUpdatedDate = date('Y-m-d H:i:s');
+    $createdBy         = "Admin"; //from session
+    $createdDate       = date('Y-m-d H:i:s');
+    if (substr($imagetype, 0, 5) == "image") {
+        // construct SQL insert statement
+        $sql_insert = "INSERT INTO `company`(`CompanyId`, `AgentId`, `CompanyName`, 
+            `Logo`, `LogoName`, `AddressLine1`, `AddressLine2`, `AddressLine3`, `ContactPerson`, 
+            `PhoneNo`, `Mobile`, `Email`, `Latitude`, `Longitude`, `Status`, `StatusUpdatedBy`, 
+            `StatusUpdatedDate`, `CreatedBy`, `CreatedDate`) 
+             VALUES(" . $pdo->quote($CompanyId) . "," . $pdo->quote($AgentId) . "," . $pdo->quote($CompanyName) . "," . $pdo->quote($imagedata) . "," . $pdo->quote($imagename) . "," . $pdo->quote($AddressLine1) . "," . $pdo->quote($AddressLine2) . "," . $pdo->quote($AddressLine3) . "," . $pdo->quote($ContactPerson) . "," . $pdo->quote($PhoneNo) . "," . $pdo->quote($Mobile) . "," . $pdo->quote($Email) . "," . $pdo->quote($Latitude) . "," . $pdo->quote($Longitude) . "," . $pdo->quote($Status) . "," . $pdo->quote($statusUpdatedBy) . "," . $pdo->quote($statusUpdatedDate) . "," . $pdo->quote($createdBy) . "," . $pdo->quote($createdDate) . ")";
+        if ($pdo->exec($sql_insert) === false) {
+            $msg = 'Error creating the company.';
+            return false;
+        } else {
+            $msg = "The new company $CompanyName is created";
+            return true;
+            //display_form();
+        }
+    } else {
+        $msg = "only images are allowed!";
+        return false;
+    }
+}
+
+ function display_msg($msg, $type)
+{
+    $type === true ? $cssClass = "alert-success" : $cssClass = "alert-error";
+    if ($msg != '') {
+?>
+ <div class="alert <?php echo $cssClass;?>">
+ <?php echo $msg;?>
+ </div>
+ 
+ <?php
+    }
+}
+
+
+function display_form()
+{
+    global $msg, $result, $pdo;
+    $stmt = $pdo->query("SELECT * FROM companystatus");
+    $stmt->execute();
+    $data  = $stmt->fetchAll();
+	
+    $stmt1 = $pdo->query("SELECT * FROM systemuser");
+    $stmt1->execute();
+    $agent = $stmt1->fetchAll();
+	
+	$stmt2 = $pdo->query("SELECT * FROM `company` order by Id DESC limit 1 ");
+    $stmt2->execute();
+    $company = $stmt2->fetchAll();
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -15,7 +120,7 @@ include_once("common/head.php");
 
 <!-- Start Switcher -->
 <?php
-include_once("common/switcher.php");
+//include_once("common/switcher.php");
 ?>
 <!-- /Switcher -->  
 
@@ -23,7 +128,7 @@ include_once("common/switcher.php");
 <header>
   <?php
   // Main Header //
-  include_once("common/header.php");
+  //include_once("common/header.php");
   //Main Header End//
   // Navigation //
   
@@ -34,36 +139,26 @@ include_once("common/navigation.php");
 </header>
 <!-- /Header --> 
 
-<!--Page Header-->
-<!--<section class="page-header profile_page">
-  <div class="container">
-    <div class="page-header_wrap">
-      <div class="page-heading">
-        <h1>Your Profile</h1>
-      </div>
-      <ul class="coustom-breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li>Profile</li>
-      </ul>
-    </div>
-  </div>-->
-  <!-- Dark Overlay-->
-  <!--<div class="dark-overlay"></div>
-</section>-->
-<!-- /Page Header--> 
-
 <!--Profile-setting-->
 <section class="user_profile inner_pages">
   <div class="container">
+  <form role="form" action = "<?php $_SERVER['PHP_SELF'];?>" method = "POST" enctype="multipart/form-data">
     <div class="user_profile_info gray-bg padding_4x4_40">
-      <div class="upload_user_logo"> <img src="assets/images/dealer-logo.jpg" alt="image">
-        <div class="upload_newlogo">
-          <input name="upload" type="file">
+      <div class="upload_user_logo"> 
+	  <?php foreach ($company as $rowx):?>
+	  <embed src='data:".$rowx['LogoName'].";base64,".base64_encode($rowx['Logo'])."'width='100'/>
+
+					  <!--<img src="assets/images/dealer-logo.jpg" alt="image"id="imgs">-->
+					<?php endforeach;?>
+	  
+	  
+        <div class="upload_newlogo" id="uploadimage" style="height: 25%;width: 25%; background-position: top;">
+		  <input type="file" class="coverimage" id="image" name="image">
         </div>
       </div>
       <div class="dealer_info">
-        <h5>Autospot Used Cars Center </h5>
-        <p>P.1225 N Broadway Ave <br>
+        <h5 id="companyName">Autospot Used Cars Center </h5>
+        <p id="companyAddress">P.1225 N Broadway Ave <br>
           Oklahoma City, OK  1234-5678-090</p>
       </div>
     </div>
@@ -79,77 +174,79 @@ include_once("common/navigation.php");
         </div>
       </div>
       <div class="col-md-6 col-sm-8">
-		<form action="#" method="get">
-			<div class="profile_wrap">
-			  <h5 class="uppercase underline">Genral Settings</h5>
-				<div class="form-group">
-				  <label class="control-label">Full Name</label>
-				  <input class="form-control white_bg" id="fullname" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Email Address</label>
-				  <input class="form-control white_bg" id="email" type="email">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Phone Number</label>
-				  <input class="form-control white_bg" id="phone-number" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Date of Birth</label>
-				  <input class="form-control white_bg" id="birth-date" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Your Address</label>
-				  <textarea class="form-control white_bg" rows="4"></textarea>
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Country</label>
-				  <input class="form-control white_bg" id="country" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">City</label>
-				  <input class="form-control white_bg" id="city" type="text">
-				</div>
+		<div class="profile_wrap">
+		  <h5 class="uppercase underline">Genral Settings</h5>
+			<div class="form-group">
+			  <label class="control-label">Company Name</label>
+			  <input type="text" class="form-control white_bg" id="CompanyName" name="CompanyName" placeholder="Enter Company Name">
 			</div>
-			<div class="profile_wrap">
-				<!--<div class="gray-bg field-title">
-				  <h6>Update password</h6>
-				</div>-->
-				<h5 class="uppercase underline">Update password</h5>
-				<div class="form-group">
-				  <label class="control-label">Password</label>
-				  <input class="form-control white_bg" id="password" type="password">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Confirm Password</label>
-				  <input class="form-control white_bg" id="c-password" type="password">
-				</div>
-				<div class="gray-bg field-title">
-				  <h6>Social Links</h6>
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Facebook ID</label>
-				  <input class="form-control white_bg" id="facebook" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Twitter ID</label>
-				  <input class="form-control white_bg" id="twitter" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Linkedin ID</label>
-				  <input class="form-control white_bg" id="linkedin" type="text">
-				</div>
-				<div class="form-group">
-				  <label class="control-label">Google+ ID</label>
-				  <input class="form-control white_bg" id="google" type="text">
-				</div>
-				<div class="form-group">
-				  <button type="submit" class="btn">Save Changes <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
-				</div>
+			<div class="form-group">
+			  <label class="control-label">Address Line 1</label>
+			  <input type="text" class="form-control white_bg" id="AddressLine1" name="AddressLine1" placeholder="Enter Address">
 			</div>
-		</form>
+			<div class="form-group">
+			  <label class="control-label">Address Line 2</label>
+			  <input type="text" class="form-control white_bg" id="AddressLine2" name="AddressLine2" placeholder="Enter Address">
+			</div>
+			<div class="form-group">
+			  <label class="control-label">Address Line 3</label>
+			  <input type="text" class="form-control white_bg" id="AddressLine3" name="AddressLine3" placeholder="Enter Address">
+			</div>
+			<div class="form-group">
+			  <label class="control-label">Phone No</label>
+			  <input type="text" class="form-control white_bg" id="PhoneNo" name="PhoneNo" placeholder="Enter Phone No">
+			</div>
+			<div class="form-group">
+			  <label class="control-label">Agent Id</label>
+				<select class="form-control white_bg" id="AgentId" name="AgentId">
+					<option>Select Agent</option>
+					<?php foreach ($agent as $row1):?>
+					  <option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>
+					<?php endforeach;?>
+				</select>
+			</div>
+		</div>
+		<div class="profile_wrap">
+			<h5 class="uppercase underline">Location Detail</h5>
+			<div class="form-group">
+				  <label class="control-label">Latitude</label>
+				  <input type="text" class="form-control white_bg" id="Latitude" name="Latitude" placeholder="Enter Latitude">
+				</div>
+				<div class="form-group">
+				  <label class="control-label">Longitude</label>
+				  <input type="text" class="form-control white_bg" id="Longitude" name="Longitude" placeholder="Enter Longitude">
+				</div>
+				<div class="form-group">
+					<label class="control-label">Company Status</label>
+					<select class="form-control white_bg" id="Status" name="Status">
+						<option>Select Company Status</option>
+						<?php foreach ($data as $row):?>
+						  <option value='<?= $row["Id"] ?>'><?= $row["Name"] ?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			<div class="gray-bg field-title">
+			  <h6>Contact Person</h6>
+			</div>
+			<div class="form-group">
+				  <label class="control-label">Contact Person</label>
+				  <input type="text" class="form-control white_bg" id="ContactPerson" name="ContactPerson" placeholder="Enter Contact Person">
+				</div>
+				<div class="form-group">
+				  <label class="control-label">Mobile No</label>
+				  <input type="text" class="form-control white_bg" id="Mobile" name="Mobile" placeholder="Enter Mobile No">
+				</div>
+				<div class="form-group">
+				  <label class="control-label">Email</label>
+				  <input type="text" class="form-control white_bg" id="Email" name="Email" placeholder="Enter Email">
+				</div>
+			<div class="form-group">
+			  <button type="submit" class="btn" id="btnsubmit" name="btnsubmit">Add Company <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+			</div>
+		</div>
       </div>
     </div>
+	</form>
   </div>
 </section>
 <!--/Profile-setting--> 
@@ -157,7 +254,7 @@ include_once("common/navigation.php");
 <!--Brands-->
 <?php
 
-include_once("common/populerBrands.php");
+//include_once("common/populerBrands.php");
 ?>
 <!-- /Brands--> 
 
@@ -193,6 +290,8 @@ include_once("common/forgotPassword.php");
 
 ///Forgot-password-Form // 
 ?>
+<script src="assets/image-preview-jquery/jquery.min.js"></script>
+<script src="assets/image-preview-jquery/img.js"></script>
 <!-- Scripts --> 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 
@@ -205,5 +304,10 @@ include_once("common/forgotPassword.php");
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
 
+
+
 </body>
 </html>
+<?php
+}
+?> 
