@@ -15,7 +15,7 @@ include_once("common/head.php");
 
 <!-- Start Switcher -->
 <?php
-include_once("common/switcher.php");
+//include_once("common/switcher.php");
 ?>
 <!-- /Switcher -->  
         
@@ -23,7 +23,7 @@ include_once("common/switcher.php");
 <header>
   <?php
   // Main Header //
-  include_once("common/header.php");
+  //include_once("common/header.php");
   //Main Header End//
   // Navigation //
   
@@ -241,7 +241,7 @@ include_once("common/navigation.php");
               </div>
             </div>
           </div>
-          <div class="comment_form">
+          <!--<div class="comment_form">
             <h6>Leave a Comment</h6>
             <form action="#">
               <div class="form-group">
@@ -257,7 +257,7 @@ include_once("common/navigation.php");
                 <input type="submit" class="btn" value="Submit Comment">
               </div>
             </form>
-          </div>
+          </div>-->
         </div>
       </div>
       <aside class="col-md-3">
@@ -289,7 +289,7 @@ include_once("common/navigation.php");
 <!--Brands-->
 <?php
 
-include_once("common/populerBrands.php");
+//include_once("common/populerBrands.php");
 ?>
 <!-- /Brands--> 
 
