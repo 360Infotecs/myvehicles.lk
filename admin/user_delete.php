@@ -1,17 +1,12 @@
 <?php
 
-include('db.php');
-include("function.php");
+include('common/DBConnect.php');
+include('common/functions.php');
 
 if(isset($_POST["user_id"]))
 {
-	$image = get_image_name($_POST["user_id"]);
-	if($image != '')
-	{
-		unlink("upload/" . $image);
-	}
-	$statement = $connection->prepare(
-		"DELETE FROM users WHERE id = :id"
+	$statement = $pdo->prepare(
+		"UPDATE systemuser SET Status = 3 WHERE Id = :id"
 	);
 	$result = $statement->execute(
 		array(
@@ -21,10 +16,7 @@ if(isset($_POST["user_id"]))
 	
 	if(!empty($result))
 	{
-		echo 'Data Deleted';
+		echo 'User Deleted';
 	}
 }
-
-
-
 ?>

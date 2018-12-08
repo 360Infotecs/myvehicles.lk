@@ -53,6 +53,51 @@ function create_user()
     return false;
 }
 
+function edit_user()
+{
+	$user_id = $_POST['user_id'];
+    $un       = $_POST['username'];
+    $username = validate_empty($un, 'User Name');
+    if ($username !== false)
+    {
+        $tpNo      = $_POST['phoneno'];
+        $phoneNo   = validate_empty($tpNo, 'Phone No');
+        $userLevel = validate_selection($_POST['userlevel'], 'User Level');
+        
+        if ($phoneNo)
+        {
+        /*    if (!phoneno_exist($phoneNo))
+            {*/
+                return Update_User($user_id,$userLevel, $username, $phoneNo);
+            /*}*/
+        }
+    }
+    return false;
+}
+
+function active_user()
+{
+	$user_id = $_POST['user_id'];
+
+
+
+    if ($username !== false)
+    {
+        $tpNo      = $_POST['phoneno'];
+        $phoneNo   = validate_empty($tpNo, 'Phone No');
+        $userLevel = validate_selection($_POST['userlevel'], 'User Level');
+        
+        if ($phoneNo)
+        {
+        /*    if (!phoneno_exist($phoneNo))
+            {*/
+                return Update_User($user_id,$userLevel, $username, $phoneNo);
+            /*}*/
+        }
+    }
+    return false;
+}
+
 function Insert_User($userLevel, $username, $password, $phoneNo)
 {
 	global $pdo, $msg;
@@ -122,6 +167,42 @@ function Insert_User($userLevel, $username, $password, $phoneNo)
 	    
 }
 
+function Update_User($user_id, $userLevel, $username, $phoneNo)
+{
+	global $pdo, $msg;
+	
+	$statement = $pdo->prepare(		
+			"UPDATE systemuser 
+			SET UserLevel=:UserLevel, UserName=:UserName, PhoneNo=:PhoneNo, StatusUpdatedBy=:StatusUpdatedBy, StatusUpdatedDate=:StatusUpdatedDate
+			WHERE Id=:id"
+			
+		);
+		
+		$result = $statement->execute(
+			array(
+				':UserLevel'	=>	$userLevel,
+				':UserName'	=>	$username,
+				':PhoneNo'		=>	$phoneNo,
+				':StatusUpdatedBy'		=>	$_SESSION['UserId'],
+				':StatusUpdatedDate'		=>	date('Y-m-d H:i:s'),
+				':id'			=>	$user_id
+			)
+		);
+    	
+		if ($result === false)
+	    {
+	        $msg = 'Error Updating the user.';
+	        return false;
+	        echo $msg;
+	    }
+	    else
+	    {	    	
+	        $msg = "Your User information has successfully updated.";
+	        echo $msg;
+	        return true;
+	    }	    
+}
+
 
 if(isset($_POST["operation"]))
 {
@@ -138,33 +219,25 @@ if(isset($_POST["operation"]))
 	}
 	if($_POST["operation"] == "Edit")
 	{
-		$image = '';
-		if($_FILES["user_image"]["name"] != '')
+		try
 		{
-			$image = upload_image();
+			$result = edit_user();
 		}
-		else
+	    catch (PDOException $e)
+	    {
+	        echo $e->getMessage();
+	    }
+	}
+	if($_POST["operation"] == "Activate")
+	{
+		try
 		{
-			$image = $_POST["hidden_user_image"];
+			$result = active_user();
 		}
-		$statement = $connection->prepare(
-			"UPDATE users 
-			SET first_name = :first_name, last_name = :last_name, image = :image  
-			WHERE id = :id
-			"
-		);
-		$result = $statement->execute(
-			array(
-				':first_name'	=>	$_POST["first_name"],
-				':last_name'	=>	$_POST["last_name"],
-				':image'		=>	$image,
-				':id'			=>	$_POST["user_id"]
-			)
-		);
-		if(!empty($result))
-		{
-			echo 'Data Updated';
-		}
+	    catch (PDOException $e)
+	    {
+	        echo $e->getMessage();
+	    }
 	}
 }
 

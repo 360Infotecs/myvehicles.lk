@@ -6,7 +6,7 @@
 	<script src="plugins/DataTable/js/dataTables.bootstrap.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
+	
 	<!--<script src="plugins/DataTable/js/bootstrap.min.js"></script>-->
 
     <!-- SlimScroll -->
@@ -17,3 +17,4 @@
     <script src="dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+    <script src="dist/js/jquery-confirm.js"></script>

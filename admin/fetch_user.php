@@ -88,24 +88,24 @@ foreach($result as $row)
 	if($row["UserStatusId"]==='1')
 	{
 		$hidden="";
-		$activeClass="btn btn-primary btn-sm update";
+		$activeClass="btn btn-primary btn-sm activate";
 		$activeTitle="Disable";
 	}
 	else if($row["UserStatusId"]==='2')
 	{
 		$hidden="";
-		$activeClass="btn btn-info btn-sm update";
+		$activeClass="btn btn-info btn-sm activate";
 		$activeTitle="Activate";
 		
 	}
 	else{
 		$hidden=" hidden";
-		$activeClass="btn btn-info btn-sm update";
+		$activeClass="btn btn-info btn-sm activate";
 		$activeTitle="Deleted";
 		
 		
 	}
-	$sub_array[] = '<button type="button" name="update" id="'.$row["Id"].'" class="'.$activeClass.$hidden.'"><span class="glyphicon glyphicon-trash"></span> '.$activeTitle.'</button>';
+	$sub_array[] = '<button class="'.$activeClass.$hidden.'" type="button" name="active" value="'.$activeTitle.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-off"></span> '.$activeTitle.'</button>';
 	$sub_array[] = '<button class="btn btn-warning btn-sm update'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-edit"></span> Edit</button>';
 	$sub_array[] = '<button class="btn btn-danger btn-sm delete'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-trash"></span> Delete</button>';
 
