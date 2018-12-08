@@ -3,10 +3,6 @@ session_start();
 include('common/DBConnect.php');
 include('function.php');
 
-//$userid = $_SESSION['UserId'];
-
-	//echo '<script>console.log('.  $_POST["user_id"] .')</script>';
-
 if(isset($_POST["user_id"]))
 {
 	
@@ -20,16 +16,16 @@ if(isset($_POST["user_id"]))
 	$result = $statement->fetchAll();
 	foreach($result as $row)
 	{
-		//$output["UserId"] = $row["UserId"];
-		$output["userlevel"] =2;// $row["userlevel"];
+		$output["UserId"] = $row["UserId"];
+		$output["UserLevel"] = $row["UserLevel"];
 		$output["UserName"] = $row["UserName"];
-		//$output["Password"] = $row["Password"];
+		$output["Password"] = $row["Password"];
 		$output["PhoneNo"] = $row["PhoneNo"];
-		//$output["Status"] = $row["Status"];
-		//$output["StatusUpdatedBy"] = $userid;
-		//$output["StatusUpdatedDate"] = date('Y-m-d H:i:s');
-		//$output["CreatedBy"] = $row["CreatedBy"];
-		//$output["CreatedDate"] = $row["CreatedDate"];
+		$output["Status"] = $row["Status"];
+		$output["StatusUpdatedBy"] = $row["StatusUpdatedBy"];
+		$output["StatusUpdatedDate"] = $row["StatusUpdatedDate"];
+		$output["CreatedBy"] = $row["CreatedBy"];
+		$output["CreatedDate"] = $row["CreatedDate"];
 	}
 	echo json_encode($output);
 }
