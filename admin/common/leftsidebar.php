@@ -26,15 +26,14 @@
             <li class="header">MAIN NAVIGATION</li>
             
 
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+          <!--  <li class="treeview">-->
+              <li><a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+              </a></li>
+              <!--<ul class="treeview-menu">
+                <li><a href="index.php"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                 <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
               </ul>
-            </li>
+            </li>-->
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-car text-yellow"></i> <span>Vehicle Manager</span> <i class="fa fa-angle-left pull-right"></i>
@@ -50,9 +49,18 @@
                 <i class="fa fa-building-o text-yellow"></i> <span>Company Manager</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="company_manager.php"><i class="fa fa-building"></i> Manage Companies</a></li>
-                <li><a href="company_registration.php"><i class="fa fa-building"></i> Create Company</a></li>
-                <li><a href="index2.html"><i class="fa fa-building"></i> My Company</a></li>
+              <?php
+                if($_SESSION['UserLevelId']=='5' or $_SESSION['UserLevelId']=='4')
+                {
+                //echo'<li><a href="company_manager.php"><i class="fa fa-building"></i> Manage Companies</a></li>';
+                echo'<li><a href="index2.html"><i class="fa fa-building"></i> My Company</a></li>';
+                }
+                else
+                {
+				echo'<li><a href="company_manager.php"><i class="fa fa-building"></i> Manage Companies</a></li>';
+                echo'<li><a href="index2.html"><i class="fa fa-building"></i> My Company</a></li>';
+				}
+                ?>
               </ul>
             </li>
 
@@ -61,9 +69,19 @@
                 <i class="fa fa-users text-yellow"></i> <span>User Manager</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-              	<li><a href="user_manager.php"><i class="fa fa-user-times"></i> Manage Users</a></li>
-                <li><a href="user_registration.php"><i class="fa fa-user-plus"></i> Create User</a></li>
-                <li><a href="index2.html"><i class="fa fa-user"></i> My User Profile</a></li>
+              <?php
+              if($_SESSION['UserLevelId']=='5')
+              {
+			  	//echo'<li><a href="user_manager.php"><i class="fa fa-user-times"></i> Manage Users</a></li>';
+			  	echo'<li><a href="index2.html"><i class="fa fa-user"></i> My User Profile</a></li>';
+			  }
+			  else
+			  {
+			  	echo'<li><a href="user_manager.php"><i class="fa fa-user-times"></i> Manage Users</a></li>';
+                echo'<li><a href="index2.html"><i class="fa fa-user"></i> My User Profile</a></li>';
+			  }
+              	
+                ?>
               </ul>
             </li>
 

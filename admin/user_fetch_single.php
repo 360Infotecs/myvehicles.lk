@@ -8,7 +8,7 @@ if(isset($_POST["user_id"]))
 	
 	$output = array();
 	$statement = $pdo->prepare(
-		"SELECT * FROM `systemuser`
+		"SELECT * FROM systemuser
 		WHERE Id = '".$_POST["user_id"]."' 
 		LIMIT 1"
 	);

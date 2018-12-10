@@ -158,12 +158,12 @@ if (!isset($_SESSION['UserName'])) {
     
 ?>
        <div id="userModal" class="modal modal-info fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm">
                 <form method="post" id="user_form" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"></h4>
+                            <center><h4 class="modal-title"></h4></center>
                         </div>
                         <div class="modal-body">
                             <div id="alert" class="alert alert-danger text-center" style="margin-top:20px; display:none;">
@@ -218,7 +218,6 @@ if (!isset($_SESSION['UserName'])) {
 			$('#action').val("Add");
 			$('#operation').val("Add");
 			$('#alert').hide();
-			//$('#user_uploaded_image').html('');
 		});
 
 		var dataTable = $('#user_data').DataTable({
@@ -226,7 +225,7 @@ if (!isset($_SESSION['UserName'])) {
 			"serverSide": true,
 			"order": [],
 			"ajax": {
-				url: "fetch_user.php",
+				url: "user_fetch.php",
 				type: "POST"
 			},
 			"columnDefs": [{
