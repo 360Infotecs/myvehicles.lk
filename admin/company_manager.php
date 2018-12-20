@@ -279,7 +279,7 @@ if (!isset($_SESSION['UserName'])) {
                         
                     </div>
                     <div class="modal-footer">
-                            <input type="hidden" name="user_id" id="user_id" />
+                            <input type="hidden" name="company_id" id="company_id" />
                             <input type="hidden" name="operation" id="operation" />
                             <input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
                             <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
@@ -323,19 +323,29 @@ if (!isset($_SESSION['UserName'])) {
 		$(document).on('submit', '#company_form', function (event) {
 			event.preventDefault();
 
-			var UserLevel = $('#userlevel').val();
-			var UserName = $('#username').val();
-			var PhoneNo = $('#phoneno').val();
+			var CompanyName = $('#CompanyName').val();
+			var AddressLine1 = $('#AddressLine1').val();
+			var AddressLine2 = $('#AddressLine2').val();
+			var AddressLine3 = $('#AddressLine3').val();
+			var PhoneNo = $('#PhoneNo').val();
+			var AgentId = $('#AgentId').val();
+			var ContactPerson = $('#ContactPerson').val();
+			var Mobile = $('#Mobile').val();
+			var Email = $('#Email').val();
+			var Latitude = $('#Latitude').val();
+			var Longitude = $('#Longitude').val();
+			
+
 
 			$.ajax({
-				url: "user_insert.php",
+				url: "company_insert.php",
 				method: 'POST',
 				data: new FormData(this),
 				contentType: false,
 				processData: false,
 				success: function (data) {
-					if (UserLevel != -1) {
-						if (UserName != '' && PhoneNo != '') {
+					if (AgentId != -1) {
+						if (CompanyName != '' && PhoneNo != '' && AddressLine1!='') {
 							$('#alert').show();
 							$('#alert_message').html(data);
 							setTimeout(function () {
@@ -351,30 +361,40 @@ if (!isset($_SESSION['UserName'])) {
 						}
 					} else {
 						$('#alert').show();
-						$('#alert_message').html('Please Select A Valid User Level.');
+						$('#alert_message').html('Please Select a Valid Agent.');
 					}
 				}
 			});
 		});
 
 		$(document).on('click', '.update', function () {
-			var user_id = $(this).attr("id");
+			var company_id = $(this).attr("id");
 			console.log(10);
 			$.ajax({
 				url: "company_fetch_single.php",
 				method: "POST",
 				data: {
-					user_id: user_id
+					company_id: company_id
 				},
 				dataType: "json",
 				success: function (data) {
 					console.log('data', data);
 					$('#companyModal').modal('show');
-					$('#username').val(data.UserName);
-					$('#phoneno').val(data.PhoneNo);
-					$('#userlevel').val(data.UserLevel);
-					$('.modal-title').text("Edit User");
-					$('#user_id').val(user_id);
+					$('#CompanyName').val(data.CompanyName);
+					$('#AddressLine1').val(data.AddressLine1);
+					$('#AddressLine2').val(data.AddressLine2);
+					$('#AddressLine3').val(data.AddressLine3);
+					$('#PhoneNo').val(data.PhoneNo);
+					$('#AgentId').val(data.AgentId);
+					$('#Latitude').val(data.Latitude);
+					$('#Longitude').val(data.Longitude);
+					$('#ContactPerson').val(data.ContactPerson);
+					$('#Mobile').val(data.Mobile);
+					$('#Email').val(data.Email);
+					$('#imgs').attr("src", data.imgs);
+					
+					$('.modal-title').text("Edit Company");
+					$('#company_id').val(company_id);
 					$('#action').val("Edit");
 					$('#operation').val("Edit");
 				},

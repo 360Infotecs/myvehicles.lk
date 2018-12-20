@@ -28,11 +28,26 @@ if(isset($_POST["company_id"]))
 		$output["Email"] = $row["Email"];
 		$output["Latitude"] = $row["Latitude"];
 		$output["Longitude"] = $row["Longitude"];
-		$output["Status"] = $row["Status"];
 		$output["StatusUpdatedBy"] = $row["StatusUpdatedBy"];
 		$output["StatusUpdatedDate"] = $row["StatusUpdatedDate"];
-		$output["CreatedBy"] = $row["CreatedBy"];
-		$output["CreatedDate"] = $row["CreatedDate"];
+		
+		$image = glob('images/companyLogo/'.$row["CompanyId"].'.*');
+		
+		if($image != NULL)
+		{
+			foreach ($image as $img) {
+
+				$output['imgs'] = $img;
+			}
+			
+		}
+		else
+		{
+			$output['imgs'] = '';
+		}
+		
+
+
 	}
 	echo json_encode($output);
 }
