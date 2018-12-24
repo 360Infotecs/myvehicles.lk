@@ -12,21 +12,21 @@ if($currentuser==='1')//Super Admin
 	$query .='SELECT co.Id, co.CompanyId, co.AgentId, co.CompanyName, co.AddressLine1, co.AddressLine2, co.AddressLine3, 
 	co.ContactPerson, co.PhoneNo, co.Mobile, co.Email, co.Latitude, co.Longitude, co.Status as StatusId, 
 	cs.Name as Status, co.StatusUpdatedBy, co.StatusUpdatedDate, co.CreatedBy, co.CreatedDate 
-	FROM company co left join companystatus cs on cs.Id = co.Status ';
+	FROM company co left join companystatus cs on cs.Id = co.Status WHERE ';
 }
 else if($currentuser==='2')//System Admin
 {
 	$query .='SELECT co.Id, co.CompanyId, co.AgentId, co.CompanyName, co.AddressLine1, co.AddressLine2, co.AddressLine3, 
 	co.ContactPerson, co.PhoneNo, co.Mobile, co.Email, co.Latitude, co.Longitude, co.Status as StatusId, 
 	cs.Name as Status, co.StatusUpdatedBy, co.StatusUpdatedDate, co.CreatedBy, co.CreatedDate 
-	FROM company co left join companystatus cs on cs.Id = co.Status WHERE co.Status!=3 ';
+	FROM company co left join companystatus cs on cs.Id = co.Status WHERE co.Status!=3 and ';
 }
 else if($currentuser==='3')//Level 1 User
 {
 	$query .='SELECT co.Id, co.CompanyId, co.AgentId, co.CompanyName, co.AddressLine1, co.AddressLine2, co.AddressLine3, 
 	co.ContactPerson, co.PhoneNo, co.Mobile, co.Email, co.Latitude, co.Longitude, co.Status as StatusId, 
 	cs.Name as Status, co.StatusUpdatedBy, co.StatusUpdatedDate, co.CreatedBy, co.CreatedDate 
-	FROM company co left join companystatus cs on cs.Id = co.Status WHERE co.Status!=3 AND co.CreatedBy ="'.$currentuserid.'" ';
+	FROM company co left join companystatus cs on cs.Id = co.Status WHERE co.Status!=3 AND co.CreatedBy ="'.$currentuserid.'" and ';
 }
 /*else if($currentuser==='4')//Level 2 User
 {
@@ -40,7 +40,7 @@ else //Site User
 
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'and (co.CompanyId LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= '(co.CompanyId LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR co.AgentId LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR co.ContactPerson LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR co.PhoneNo LIKE "%'.$_POST["search"]["value"].'%" ';
@@ -71,7 +71,8 @@ if($_POST["length"] != -1)
 {
 	$query .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
-//echo $query;
+
+//echo '<script>console.log('.$query.')</script>';
 
 $statement = $pdo->prepare($query);
 $statement->execute();

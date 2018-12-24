@@ -272,14 +272,12 @@ if (!isset($_SESSION['UserName'])) {
 	                    </div>
 	                    
 					</div>
-              
-
-
-                        
+            
                         
                     </div>
                     <div class="modal-footer">
                             <input type="hidden" name="company_id" id="company_id" />
+							<input type="hidden" name="companyNo" id="companyNo" />
                             <input type="hidden" name="operation" id="operation" />
                             <input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
                             <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
@@ -303,6 +301,7 @@ if (!isset($_SESSION['UserName'])) {
 			$('#action').val("Add");
 			$('#operation').val("Add");
 			$('#alert').hide();
+			$('#imgs').attr("src", "");
 		});
 
 		var dataTable = $('#company_data').DataTable({
@@ -323,6 +322,7 @@ if (!isset($_SESSION['UserName'])) {
 		$(document).on('submit', '#company_form', function (event) {
 			event.preventDefault();
 
+			var CompanyNo = $('#companyNo').val();
 			var CompanyName = $('#CompanyName').val();
 			var AddressLine1 = $('#AddressLine1').val();
 			var AddressLine2 = $('#AddressLine2').val();
@@ -334,8 +334,6 @@ if (!isset($_SESSION['UserName'])) {
 			var Email = $('#Email').val();
 			var Latitude = $('#Latitude').val();
 			var Longitude = $('#Longitude').val();
-			
-
 
 			$.ajax({
 				url: "company_insert.php",
@@ -343,33 +341,28 @@ if (!isset($_SESSION['UserName'])) {
 				data: new FormData(this),
 				contentType: false,
 				processData: false,
-				success: function (data) {
-					if (AgentId != -1) {
-						if (CompanyName != '' && PhoneNo != '' && AddressLine1!='') {
-							$('#alert').show();
-							$('#alert_message').html(data);
-							setTimeout(function () {
-								$('#alert').hide();
-							}, 3000);
-							setTimeout(function () {
-								$('#companyModal').modal('hide');
-							}, 4000);
-							dataTable.ajax.reload();
-						} else {
-							$('#alert').show();
-							$('#alert_message').html(data);
-						}
-					} else {
+				success: function (data) {					
+					if(data.value == false)
+					{
 						$('#alert').show();
-						$('#alert_message').html('Please Select a Valid Agent.');
+						$('#alert_message').html(data.msg);
 					}
+					else{
+						$('#alert').show();
+						$('#alert_message').html(data.msg);
+						$('#companyModal').modal('hide');
+						dataTable.ajax.reload();
+					}
+					
+				},
+				error: function (error) {
+					console.log('error', error);
 				}
 			});
 		});
 
 		$(document).on('click', '.update', function () {
 			var company_id = $(this).attr("id");
-			console.log(10);
 			$.ajax({
 				url: "company_fetch_single.php",
 				method: "POST",
@@ -378,8 +371,8 @@ if (!isset($_SESSION['UserName'])) {
 				},
 				dataType: "json",
 				success: function (data) {
-					console.log('data', data);
 					$('#companyModal').modal('show');
+					$('#companyNo').val(data.CompanyId);
 					$('#CompanyName').val(data.CompanyName);
 					$('#AddressLine1').val(data.AddressLine1);
 					$('#AddressLine2').val(data.AddressLine2);
@@ -392,11 +385,14 @@ if (!isset($_SESSION['UserName'])) {
 					$('#Mobile').val(data.Mobile);
 					$('#Email').val(data.Email);
 					$('#imgs').attr("src", data.imgs);
+					$('#image').val("");
 					
 					$('.modal-title').text("Edit Company");
 					$('#company_id').val(company_id);
 					$('#action').val("Edit");
 					$('#operation').val("Edit");
+					$('#alert').hide();
+	
 				},
 				error: function (error) {
 					console.log('error', error);
@@ -405,28 +401,27 @@ if (!isset($_SESSION['UserName'])) {
 		});
 
 		$(document).on('click', '.delete', function () {
-			var user_id = $(this).attr("id");
+			var company_id = $(this).attr("id");
 
 			$.confirm({
 				title: 'Oops!',
-				content: 'Are you sure you want to delete this user?',
+				content: 'Are you sure you want to delete this Company?',
 				autoClose: 'cancelAction|5000',
 				type: 'red',
 				typeAnimated: true,
 				buttons: {
 					tryAgain: {
-						text: 'Delete User',
+						text: 'Delete Company',
 						btnClass: 'btn-red',
 						action: function () {
 							$.ajax({
 								url: "company_delete.php",
 								method: "POST",
 								data: {
-									user_id: user_id
+									company_id: company_id
 								},
 								success: function (data) {
-									$.alert(data);
-									//alert(data);
+									//$.alert(data);
 									dataTable.ajax.reload();
 								}
 							});
@@ -438,7 +433,7 @@ if (!isset($_SESSION['UserName'])) {
 		});
 
 		$(document).on('click', '.activate', function () {
-			var user_id = $(this).attr("id");
+			var company_id = $(this).attr("id");
 			var button_value = $(this).attr("value")
 			var display = "";
 			var display_title = "";
@@ -447,18 +442,18 @@ if (!isset($_SESSION['UserName'])) {
 
 			if (button_value == "Disable") {
 				display = 'Deactivate';
-				display_title = 'User Deactivatation!';
+				display_title = 'Company Deactivatation!';
 				color = 'orange';
 				btn_class = 'btn-orange';
 			} else if (button_value == "Activate") {
 				display = 'Activate';
-				display_title = 'User Activation!';
+				display_title = 'Company Activation!';
 				color = 'green';
 				btn_class = 'btn-green';
 			}
 			$.confirm({
 				title: display_title,
-				content: 'Are you sure you want to ' + display + ' this user?',
+				content: 'Are you sure you want to ' + display + ' this Company?',
 				autoClose: 'cancelAction|5000',
 				type: color,
 				typeAnimated: true,
@@ -471,7 +466,7 @@ if (!isset($_SESSION['UserName'])) {
 								url: "company_activation.php",
 								method: "POST",
 								data: {
-									user_id: user_id
+									company_id: company_id
 								},
 								success: function (data) {
 									//$.alert(data);

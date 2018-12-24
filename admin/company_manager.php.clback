@@ -48,7 +48,7 @@ if (!isset($_SESSION['UserName'])) {
                </h1>
                <ol class="breadcrumb">
                   <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                  <li class="active">User Manager</li>
+                  <li class="active">Company Manager</li>
                </ol>
             </section>
 
@@ -60,53 +60,65 @@ if (!isset($_SESSION['UserName'])) {
 
                   <div class="box-body" style="max-width: 100%; overflow-x: scroll;">
                      <div align="right">
-                        <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-plus"></span> New User</button>
+                        <button type="button" id="add_button" data-toggle="modal" data-target="#companyModal" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-plus"></span> New Company</button>
                      </div>
                      <br />
-                     <?php
-    display_msg($msg, $result);
-?>
+                     <?php display_msg($msg, $result); ?>
                     <!--<div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
                         <button class="close"><span aria-hidden="true">&times;</span></button>
                         <span id="alert_message"></span>
                      </div>-->
-                     <table id="user_data" class="table table-hover table-bordered table-striped">
+                     <table id="company_data" class="table table-hover table-bordered table-striped">
                         <thead>
                            <tr>
-                              <th>No</th>
-                              <th>User #</th>
-                              <th>User Name</th>
-                              <th>Phone No</th>
-                              <!--<th>User Level Id</th>-->
-                              <th>User Level</th>
-                              <!--<th>User Status Id</th>-->
-                              <th>User Status</th>
-                              <th>Updated By</th>
-                              <th>Updated Date</th>
-                              <th>Created By</th>
-                              <th>Created Date</th>
-                              <th>Activate</th>
-                              <th>Edit</th>
-                              <th>Delete</th>
+                            <th>Id</th>
+                            <th width="10%">Logo</th>
+							<th>Company#</th>
+							<th>Agent#</th>
+							<th>Company Name</th>
+							<th>Address Line1</th>
+							<th>Address Line2</th>
+							<th>Address Line3</th>
+							<th>Contact Person</th>
+							<th>Phone No</th>
+							<th>Mobile</th>
+							<th>Email</th>
+							<th>Latitude</th>
+							<th>Longitude</th>
+							<th>Status</th>
+							<th>Status Updated By</th>
+							<th>Status Updated Date</th>
+							<th>Created By</th>
+							<th>Created Date</th>
+	                        <th>Activate</th>
+	                        <th>Edit</th>
+	                        <th>Delete</th>
                            </tr>
                         </thead>
                         <tfoot>
                            <tr>
-                              <th>No</th>
-                              <th>User #</th>
-                              <th>User Name</th>
-                              <th>Phone No</th>
-                              <!--<th>User Level Id</th>-->
-                              <th>User Level</th>
-                              <!--<th>User Status Id</th>-->
-                              <th>User Status</th>
-                              <th>Updated By</th>
-                              <th>Updated Date</th>
-                              <th>Created By</th>
-                              <th>Created Date</th>
-                              <th>Activate</th>
-                              <th>Edit</th>
-                              <th>Delete</th>
+                            <th>Id</th>
+                            <th width="10%">Logo</th>
+							<th>Company#</th>
+							<th>Agent#</th>
+							<th>Company Name</th>
+							<th>Address Line1</th>
+							<th>Address Line2</th>
+							<th>Address Line3</th>
+							<th>Contact Person</th>
+							<th>Phone No</th>
+							<th>Mobile</th>
+							<th>Email</th>
+							<th>Latitude</th>
+							<th>Longitude</th>
+							<th>Status</th>
+							<th>Status Updated By</th>
+							<th>Status Updated Date</th>
+							<th>Created By</th>
+							<th>Created Date</th>
+	                        <th>Activate</th>
+	                        <th>Edit</th>
+	                        <th>Delete</th>
                            </tr>
                         </tfoot>
                      </table>
@@ -115,12 +127,12 @@ if (!isset($_SESSION['UserName'])) {
             </section>
          </div>
          <?php
-    include("common/sitefooter.php");
-?>
+		    include("common/sitefooter.php");
+		?>
         <!-- Control Sidebar -->
          <?php
-    include("common/customsidebar.php");
-?>
+		    include("common/customsidebar.php");
+		?>
         <div class="control-sidebar-bg"></div>
       </div>
       
@@ -135,7 +147,7 @@ if (!isset($_SESSION['UserName'])) {
     global $msg, $result, $pdo;
     $currentuser   = $_SESSION['UserLevelId'];
     $currentuserid = $_SESSION['UserId'];
-    $query         = 'SELECT * FROM userlevel ';
+   /* $query         = 'SELECT * FROM userlevel ';
     
     //Bind Dropdown
     if ($currentuser === '1') //Super Admin
@@ -154,12 +166,21 @@ if (!isset($_SESSION['UserName'])) {
     
     $stmt = $pdo->query($query);
     $stmt->execute();
-    $data = $stmt->fetchAll();
+    $data = $stmt->fetchAll();*/
+    
+	global $msg, $result, $pdo;
+/*    $stmt = $pdo->query("SELECT * FROM companystatus");
+    $stmt->execute();
+    $data = $stmt->fetchAll();*/
+    
+    $stmt1 = $pdo->query("SELECT * FROM systemuser WHERE UserLevel != 1 AND UserLevel != 2");
+    $stmt1->execute();
+    $agent = $stmt1->fetchAll();
     
 ?>
-       <div id="userModal" class="modal modal-info fade">
-            <div class="modal-dialog modal-sm">
-                <form method="post" id="user_form" enctype="multipart/form-data">
+       <div id="companyModal" class="modal modal-info fade">
+            <div class="modal-dialog modal-lg">
+                <form method="post" id="company_form" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -170,39 +191,99 @@ if (!isset($_SESSION['UserName'])) {
                                 <button class="close"><span aria-hidden="true">&times;</span></button>
                                 <span id="alert_message"></span>
                             </div>
-                            <div class="form-group">
-                               <label>User Name</label>
-                               <input type="text" class="form-control" id="username" name="username" placeholder="Enter UserName" onkeyup="checkuser();">
-                               <span id="user_status"></span>
-                            </div>
-                            <div class="form-group">
-                               <label>Phone No</label>
-                               <input type="text" id="phoneno" name="phoneno" class="form-control" placeholder="Enter phone No" onkeyup="checkphone();">
-                               <span id="phone_status"></span>
-                            </div>
-                            <div class="form-group">
-                               <label>User Level</label>
-                               <select class="form-control" id="userlevel" name="userlevel">
-                                  <option value="-1">Select User Level</option>
-                                  <?php
-    foreach ($data as $row):
-?>
-                                 <option value='<?= $row["Id"] ?>'><?= $row["Name"] ?></option>
-                                  <?php
-    endforeach;
-?>
-                              </select>
-                            </div>
+
+                    <div class="row">
+	                    <div class="col-md-12">
+	                        <div class="form-group">
+	                          <label>Company Name</label>
+	                          <input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Enter Company Name">
+	                        </div>
+	              		</div>
+              
+              			<div class="col-md-4">
+		                    <div class="form-group">
+	                          <label>Address Line 1</label>
+	                          <input type="text" class="form-control" id="AddressLine1" name="AddressLine1" placeholder="Enter Address">
+	                        </div>
+	                    
+		                    <div class="form-group">
+	                          <label>Address Line 2</label>
+	                          <input type="text" class="form-control" id="AddressLine2" name="AddressLine2" placeholder="Enter Address">
+	                        </div>
+	                    
+	                    	<div class="form-group">
+	                          <label>Address Line 3</label>
+	                          <input type="text" class="form-control" id="AddressLine3" name="AddressLine3" placeholder="Enter Address">
+	                        </div>
                         </div>
-                        <div class="modal-footer">
+                        
+                        <div class="col-md-4">
+	                        <div class="form-group">
+	                          <label>Phone No</label>
+	                          <input type="text" class="form-control" id="PhoneNo" name="PhoneNo" placeholder="Enter Phone No">
+	                        </div> 
+	                        <div class="form-group">
+					          <label>Agent Id</label>
+					            <select class="form-control" id="AgentId" name="AgentId">
+					                <option>Select Agent</option>
+					                <?php foreach ($agent as $row1):?>
+					            		<option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>n
+					                <?php endforeach;?>
+					      		</select>
+					        </div>
+		                    <div class="form-group">
+	                            <label>Company Logo</label>
+	                            <input type="file" class="coverimage form-control" id="image" name="image">
+	                        </div>
+	                    </div>
+                              
+                        <div class="col-md-4"> 
+                        	<div class="form-group">
+	                            <label>Logo Image</label>
+	                            <img id="imgs" style="max-width:180px;margin:10px;"class="img-responsive"/>
+	                        </div>
+				      </div>                 
+                    </div>
+                    <hr/>
+					<div class="row">
+				        <div class="form-group col-md-4">
+				          <label>Latitude</label>
+				          <input type="text" class="form-control" id="Latitude" name="Latitude" placeholder="Enter Latitude">
+				        </div>
+				        
+				        <div class="form-group col-md-4">
+				          <label>Longitude</label>
+				          <input type="text" class="form-control" id="Longitude" name="Longitude" placeholder="Enter Longitude">
+				        </div>
+				      </div>    
+					<hr/>
+					<div class="row">
+						<div class="form-group col-md-4">
+	                      <label>Contact Person</label>
+	                      <input type="text" class="form-control" id="ContactPerson" name="ContactPerson" placeholder="Enter Contact Person">
+	                    </div>
+	                    <div class="form-group col-md-4">
+	                      <label>Mobile No</label>
+	                      <input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="Enter Mobile No">
+	                    </div>
+	                    <div class="form-group col-md-4">
+	                      <label>Email</label>
+	                      <input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email">
+	                    </div>
+	                    
+					</div>
+
+                    </div>
+                    <div class="modal-footer">
                             <input type="hidden" name="user_id" id="user_id" />
                             <input type="hidden" name="operation" id="operation" />
                             <input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
                             <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
                         </div>
-                    </div>
                 </form>
             </div>
+                <script src="plugins/image-preview-jquery/jquery.min.js"></script>
+    			<script src="plugins/image-preview-jquery/img.js"></script>
         </div>
       <!-- Scripts Area -->
       <?php
@@ -213,37 +294,49 @@ if (!isset($_SESSION['UserName'])) {
 <script type = "text/javascript" language = "javascript" >
 	$(document).ready(function () {
 		$('#add_button').click(function () {
-			$('#user_form')[0].reset();
-			$('.modal-title').text("Register New User");
+			$('#company_form')[0].reset();
+			$('.modal-title').text("Create New Company");
 			$('#action').val("Add");
 			$('#operation').val("Add");
 			$('#alert').hide();
 		});
 
-		var dataTable = $('#user_data').DataTable({
+		var dataTable = $('#company_data').DataTable({
 			"processing": true,
 			"serverSide": true,
 			"order": [],
 			"ajax": {
-				url: "user_fetch.php",
+				url: "company_fetch.php",
 				type: "POST"
 			},
 			"columnDefs": [{
-				"targets": [0, 10, 11, 12],
+				"targets": [0,1, 19, 20, 21],
 				"orderable": false,
 			}, ],
 		});
 
 
-		$(document).on('submit', '#user_form', function (event) {
+		$(document).on('submit', '#company_form', function (event) {
 			event.preventDefault();
 
 			var UserLevel = $('#userlevel').val();
 			var UserName = $('#username').val();
 			var PhoneNo = $('#phoneno').val();
+			var UserLevel = $('#userlevel').val();
+			var UserName = $('#username').val();
+			var PhoneNo = $('#phoneno').val();
+			var UserLevel = $('#userlevel').val();
+			var UserName = $('#username').val();
+			var PhoneNo = $('#phoneno').val();
+			var UserLevel = $('#userlevel').val();
+			var UserName = $('#username').val();
+			var PhoneNo = $('#phoneno').val();
+			var UserLevel = $('#userlevel').val();
+			var UserName = $('#username').val();
+			var PhoneNo = $('#phoneno').val();
 
 			$.ajax({
-				url: "user_insert.php",
+				url: "company_insert.php",
 				method: 'POST',
 				data: new FormData(this),
 				contentType: false,
@@ -257,7 +350,7 @@ if (!isset($_SESSION['UserName'])) {
 								$('#alert').hide();
 							}, 3000);
 							setTimeout(function () {
-								$('#userModal').modal('hide');
+								$('#companyModal').modal('hide');
 							}, 4000);
 							dataTable.ajax.reload();
 						} else {
@@ -274,15 +367,17 @@ if (!isset($_SESSION['UserName'])) {
 
 		$(document).on('click', '.update', function () {
 			var user_id = $(this).attr("id");
+			console.log(10);
 			$.ajax({
-				url: "user_fetch_single.php",
+				url: "company_fetch_single.php",
 				method: "POST",
 				data: {
 					user_id: user_id
 				},
 				dataType: "json",
 				success: function (data) {
-					$('#userModal').modal('show');
+					console.log('data', data);
+					$('#companyModal').modal('show');
 					$('#username').val(data.UserName);
 					$('#phoneno').val(data.PhoneNo);
 					$('#userlevel').val(data.UserLevel);
@@ -312,7 +407,7 @@ if (!isset($_SESSION['UserName'])) {
 						btnClass: 'btn-red',
 						action: function () {
 							$.ajax({
-								url: "user_delete.php",
+								url: "company_delete.php",
 								method: "POST",
 								data: {
 									user_id: user_id
@@ -361,7 +456,7 @@ if (!isset($_SESSION['UserName'])) {
 						btnClass: btn_class,
 						action: function () {
 							$.ajax({
-								url: "user_activation.php",
+								url: "company_activation.php",
 								method: "POST",
 								data: {
 									user_id: user_id
@@ -379,6 +474,8 @@ if (!isset($_SESSION['UserName'])) {
 		});
 	}); 
 </script>
+
+
       <!-- Scripts Area End -->
    </body>
 </html>

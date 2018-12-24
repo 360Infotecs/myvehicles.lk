@@ -10,6 +10,7 @@ if(isset($_POST["company_id"]))
 		WHERE Id = '".$_POST["company_id"]."' 
 		LIMIT 1"
 	);
+
 	$select->execute();
 	$response = $select->fetchAll();
 	foreach($response as $row)
@@ -29,6 +30,7 @@ if(isset($_POST["company_id"]))
 		$query="UPDATE company SET Status = 1 WHERE Id = :id";
 		$updmsg="Company Activated.";
 	}
+
 	$statement = $pdo->prepare($query);
 	$result = $statement->execute(
 		array(
