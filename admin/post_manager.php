@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserName'])) {
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title><?php echo $Title1.$Title2.$Title3 ?> | Company Manager</title>
+      <title><?php echo $Title1.$Title2.$Title3 ?> | Vehicle Manager</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
       <?php
@@ -23,12 +23,12 @@ if (!isset($_SESSION['UserName'])) {
      <!-- DataTables -->
       <link rel="stylesheet" href="plugins/DataTable/css/bootstrap.min.css" />
       <link rel="stylesheet" href="plugins/DataTable/css/dataTables.bootstrap.min.css" />
-      <style>
+     <!-- <style>
          hide
          {
          display: none;
          }    
-      </style>
+      </style>-->
    </head>
    <body class="skin-blue sidebar-mini sidebar-collapse">
       <div class="wrapper">
@@ -72,54 +72,38 @@ if (!isset($_SESSION['UserName'])) {
                      <table id="company_data" class="table table-hover table-bordered table-striped">
                         <thead>
                            <tr>
-                            <th>Id</th>
-                            <th width="10%">Logo</th>
-							<th>Company#</th>
-							<th>Agent#</th>
-							<th>Company Name</th>
-							<th>Address Line1</th>
-							<th>Address Line2</th>
-							<th>Address Line3</th>
-							<th>Contact Person</th>
-							<th>Phone No</th>
-							<th>Mobile</th>
-							<th>Email</th>
-							<th>Latitude</th>
-							<th>Longitude</th>
-							<th>Status</th>
-							<th>Status Updated By</th>
-							<th>Status Updated Date</th>
-							<th>Created By</th>
-							<th>Created Date</th>
-	                        <th>Activate</th>
-	                        <th>Edit</th>
-	                        <th>Delete</th>
+                                <th>Id</th>
+								<th>Post No</th>
+								<th>Company</th>
+								<th>Agent</th>
+								<th>Sub Agent</th>
+								<th>PostTitle</th>
+								<th>ClassOfVehicleId</th>
+								<th>Brand</th>
+								<th>Colour</th>
+								<th>Vehicle Condition</th>
+								<th>Model Year</th>
+								<th>Fuel Type</th>
+								<th>Transmission Type</th>
+								<th>Engine Type</th>
                            </tr>
                         </thead>
                         <tfoot>
                            <tr>
-                            <th>Id</th>
-                            <th width="10%">Logo</th>
-							<th>Company#</th>
-							<th>Agent#</th>
-							<th>Company Name</th>
-							<th>Address Line1</th>
-							<th>Address Line2</th>
-							<th>Address Line3</th>
-							<th>Contact Person</th>
-							<th>Phone No</th>
-							<th>Mobile</th>
-							<th>Email</th>
-							<th>Latitude</th>
-							<th>Longitude</th>
-							<th>Status</th>
-							<th>Status Updated By</th>
-							<th>Status Updated Date</th>
-							<th>Created By</th>
-							<th>Created Date</th>
-	                        <th>Activate</th>
-	                        <th>Edit</th>
-	                        <th>Delete</th>
+                                <th>Id</th>
+								<th>Post No</th>
+								<th>Company</th>
+								<th>Agent</th>
+								<th>Sub Agent</th>
+								<th>PostTitle</th>
+								<th>ClassOfVehicleId</th>
+								<th>Brand</th>
+								<th>Colour</th>
+								<th>Vehicle Condition</th>
+								<th>Model Year</th>
+								<th>Fuel Type</th>
+								<th>Transmission Type</th>
+								<th>Engine Type</th>
                            </tr>
                         </tfoot>
                      </table>

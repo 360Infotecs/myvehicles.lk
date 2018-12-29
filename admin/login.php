@@ -46,8 +46,6 @@ function create_func()
 }
 
 
-
-
 /**
  * Check if a user exists
  * @param string $dept_name user name
@@ -155,6 +153,7 @@ function login_func($phone_no, $password)
  */
 function display_form()
 {
+	require 'common/admin.php';
     global $msg, $result;
 ?>
 
@@ -163,7 +162,7 @@ function display_form()
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MyVehicles.lk | Log in</title>
+    <title><?php echo $Title1.$Title2.$Title3 ?> | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <?php
@@ -176,7 +175,7 @@ function display_form()
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="index.php"><b>My</b>Vehicle.lk</a>
+        <a href="index.php"><b><?php echo $Title1 ?></b><?php echo $Title2.$Title3 ?></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <!--<p class="login-box-msg">Sign in to start your session</p>-->

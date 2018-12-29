@@ -39,9 +39,20 @@
                 <i class="fa fa-car text-yellow"></i> <span>Vehicle Manager</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="vehicle_registration.php"><i class="fa fa-plus"></i> Add Vehicle</a></li>
-                <li><a href="index2.html"><i class="fa fa-car"></i> Manage Vehicles</a></li>
-                <li><a href="index2.html"><i class="fa fa-car"></i> My Vehicles</a></li>
+              <?php
+                if($_SESSION['UserLevelId']=='5' or $_SESSION['UserLevelId']=='4')
+                {
+                echo'<li><a href="index2.html"><i class="fa fa-car"></i> My Vehicles</a></li>';
+                }
+                else
+                {
+				echo'<li><a href="post_manager.php"><i class="fa fa-car"></i> Manage Vehicles</a></li>';
+                echo'<li><a href="index2.html"><i class="fa fa-car"></i> My Vehicles</a></li>';
+				}
+                ?>
+
+                
+                
               </ul>
             </li>
             <li class="treeview">
