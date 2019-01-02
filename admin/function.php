@@ -68,4 +68,36 @@ function get_total_company_records()
 	return $statement->rowCount();
 }
 //Company End
+
+//Post
+
+function get_total_post_records()
+{
+		global $pdo, $user_level, $currentuserid;
+
+		$sql = '';
+	    switch ($user_level) {
+		    case "1"://Super Admin
+		        $sql = 'SELECT * FROM posts';
+		        break;
+		    case "2"://System Admin
+		        $sql = 'SELECT * FROM posts';
+		        break;
+		    case "3"://Level 1 User
+		        $sql = 'SELECT * FROM posts where Status != 3 and CreatedBy='.$currentuserid;
+		        break;
+		    case "4"://Level 2 User
+		        $sql = 'SELECT * FROM posts where Status != 3 and CreatedBy='.$currentuserid;
+		        break;
+		    default://Site User
+		        $sql = 'SELECT * FROM posts where Status != 3 and CreatedBy='.$currentuserid;
+		}
+    
+	$statement = $pdo->prepare($sql);
+	$statement->execute();
+	$result = $statement->fetchAll();
+	
+	return $statement->rowCount();
+}
+//Post End
 ?>

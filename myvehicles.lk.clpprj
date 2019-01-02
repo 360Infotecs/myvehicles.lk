@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="E:\xampp\htdocs\myvehicles.lk\myvehicles.lk.clpprj">
 	<settings><PM_URL><![CDATA[http://localhost:8080/myvehicles.lk/]]></PM_URL><PM_HOME_URL><![CDATA[http://localhost:8080/myvehicles.lk/]]></PM_HOME_URL><PM_LIBS><![CDATA[]]></PM_LIBS><PM_FTP_CONNECTION><![CDATA[]]></PM_FTP_CONNECTION><PM_FTP_DIR><![CDATA[]]></PM_FTP_DIR><PM_FTP_UPLOAD_ON_SAVE><![CDATA[INT:0]]></PM_FTP_UPLOAD_ON_SAVE></settings><removed value=";D:\Xampp\htdocs\myvehicles.lk\admin\company_registration.php;D:\Xampp\htdocs\myvehicles.lk\admin\fetch.php;"/><added value=""/><lastopfiles>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\DataTable\css\bootstrap.min.css"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\DataTable\css\dataTables.bootstrap.min.css"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\blank.php"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch.php"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php"/>
 	</lastopfiles>
 	<errors version="5.11">
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\common\functionClass.php">
@@ -12,6 +13,36 @@
 			<error val="20;7;21;7;101;1;"/>
 			<error val="20;8;21;8;101;1;"/>
 			<error val="0;11;10;11;101;1;"/>
+		</errfile>
+		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\Template\dist\css\AdminLTE.min.css">
+			<error val="119;6;153;6;2502;1;"/>
+			<error val="84;6;119;6;2502;1;"/>
+			<error val="23137;6;23167;6;2502;1;"/>
+			<error val="24720;6;24736;6;2502;1;"/>
+			<error val="50569;6;50589;6;2502;1;"/>
+			<error val="71078;6;71095;6;2502;1;"/>
+			<error val="85382;6;85385;6;2501;1;"/>
+		</errfile>
+		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\Template\bootstrap\css\bootstrap.min.css">
+			<error val="137;4;163;4;2502;1;"/>
+			<error val="107;4;137;4;2502;1;"/>
+			<error val="779;4;793;4;2501;1;"/>
+			<error val="3653;4;3687;4;2502;1;"/>
+			<error val="3618;4;3653;4;2502;1;"/>
+			<error val="15311;4;15353;4;2502;1;"/>
+			<error val="33945;4;33989;4;2502;1;"/>
+			<error val="40752;4;40772;4;2502;1;"/>
+			<error val="45392;4;45414;4;2502;1;"/>
+			<error val="45296;4;45326;4;2502;1;"/>
+			<error val="45414;4;45435;4;2502;1;"/>
+			<error val="45326;4;45352;4;2502;1;"/>
+			<error val="45435;4;45452;4;2502;1;"/>
+			<error val="46103;4;46123;4;2502;1;"/>
+			<error val="62437;4;62457;4;2502;1;"/>
+			<error val="69227;4;69260;4;2502;1;"/>
+			<error val="85759;4;85763;4;2502;1;"/>
+			<error val="87184;4;87237;4;2502;1;"/>
+			<error val="107490;4;107523;4;2502;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\DataTable\css\bootstrap.min.css">
 			<error val="137;4;163;4;2502;1;"/>
@@ -35,16 +66,18 @@
 			<error val="106091;4;106124;4;2502;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\user_manager.php">
-			<error val="32;212;56;212;2002;1;"/>
-			<error val="9;25;9;26;2501;1;"/>
+			<error val="32;227;56;227;2002;1;"/>
+			<error val="9;26;9;27;2501;1;"/>
+		</errfile>
+		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php">
+			<error val="32;280;56;280;2002;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php">
-			<error val="32;675;56;675;2002;1;"/>
-			<error val="9;25;9;26;2501;1;"/>
+			<error val="38;323;62;323;2002;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\company_manager.php">
-			<error val="32;295;56;295;2002;1;"/>
-			<error val="9;25;9;26;2501;1;"/>
+			<error val="32;296;56;296;2002;1;"/>
+			<error val="9;26;9;27;2501;1;"/>
 		</errfile>
 	</errors>
 	<cakedata>
@@ -1574,6 +1607,7 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\skin-black-light.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\_all-skins.min.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\_all-skins.css" crc="1439731180"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\styleOverwrite.css" crc="1545750675"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\jquery-confirm.min.css" crc="1544287897"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\jquery-confirm.css" crc="1544287897"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\AdminLTE.min.css" crc="1439731180"/>
@@ -1599,14 +1633,14 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\sms.php" crc="1542997314"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\sitefooter.php" crc="1541836204"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\scripts.php" crc="1544290538"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar.php" crc="1545928015"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar - Copy.php" crc="1541835690"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\header.php" crc="1544290538"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\header.php" crc="1545929141"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\head.php" crc="1544290538"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\functions.php" crc="1543777570"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\DBConnect.php" crc="1543518168"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\DBConnect.php" crc="1545927657"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\customsidebar.php" crc="1541836450"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\admin.php" crc="1542895022"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\admin.php" crc="1545928535"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-yellow.less" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-yellow-light.less" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-red.less" crc="1439731180"/>
@@ -1695,13 +1729,7 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\bootstrap\css\bootstrap.min.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\bootstrap\css\bootstrap.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_registration.php" crc="1543074612"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_manager.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_insert.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_fetch_single.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_fetch.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_delete.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\vehicle_activation.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\user_manager.php" crc="1545675569"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\user_manager.php" crc="1546093651"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\user_insert.php" crc="1544290539"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\user_fetch_single.php" crc="1545675569"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\user_fetch.php" crc="1545675569"/>
@@ -1710,15 +1738,21 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\testinsert.php" crc="1541850006"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\test.php" crc="1543067810"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\rnd.php" crc="1541937130"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php" crc="1545677338"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php" crc="1546104980"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_insert.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch_single.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch.php" crc="1546104922"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_delete.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_activation.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php" crc="1545927437"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\logout.php" crc="1542894284"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login.php" crc="1545928900"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login - Copy.php" crc="1542880528"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\index.php" crc="1542897194"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\img.php" crc="1541929692"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php" crc="1546099829"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\fetch.php" crc="1543517228"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_manager.php" crc="1545675568"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_manager.php" crc="1545928504"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_insert.php" crc="1545675568"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_fetch_single.php" crc="1545675568"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_fetch.php" crc="1545675568"/>

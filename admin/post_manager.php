@@ -69,41 +69,41 @@ if (!isset($_SESSION['UserName'])) {
                         <button class="close"><span aria-hidden="true">&times;</span></button>
                         <span id="alert_message"></span>
                      </div>-->
-                     <table id="company_data" class="table table-hover table-bordered table-striped">
+                     <table id="post_data" class="table table-hover table-bordered table-striped">
                         <thead>
                            <tr>
                                 <th>Id</th>
 								<th>Post No</th>
-								<th>Company</th>
-								<th>Agent</th>
-								<th>Sub Agent</th>
-								<th>PostTitle</th>
-								<th>ClassOfVehicleId</th>
+								<th>Post Title</th>
 								<th>Brand</th>
-								<th>Colour</th>
+								<th>Vehicle Class</th>
 								<th>Vehicle Condition</th>
-								<th>Model Year</th>
+								<th>Colour</th>
 								<th>Fuel Type</th>
 								<th>Transmission Type</th>
-								<th>Engine Type</th>
+								<th>Model Year</th>
+								<th>Company ID</th>
+								<th>Company</th>
+								<th>Agent ID </th>
+								<th>Sub Agent</th>
                            </tr>
                         </thead>
                         <tfoot>
                            <tr>
                                 <th>Id</th>
 								<th>Post No</th>
-								<th>Company</th>
-								<th>Agent</th>
-								<th>Sub Agent</th>
-								<th>PostTitle</th>
-								<th>ClassOfVehicleId</th>
+								<th>Post Title</th>
 								<th>Brand</th>
-								<th>Colour</th>
+								<th>Vehicle Class</th>
 								<th>Vehicle Condition</th>
-								<th>Model Year</th>
+								<th>Colour</th>
 								<th>Fuel Type</th>
 								<th>Transmission Type</th>
-								<th>Engine Type</th>
+								<th>Model Year</th>
+								<th>Company ID</th>
+								<th>Company</th>
+								<th>Agent ID </th>
+								<th>Sub Agent</th>
                            </tr>
                         </tfoot>
                      </table>
@@ -154,124 +154,339 @@ if (!isset($_SESSION['UserName'])) {
     $data = $stmt->fetchAll();*/
     
 	global $msg, $result, $pdo;
-/*    $stmt = $pdo->query("SELECT * FROM companystatus");
+    $stmt = $pdo->query("SELECT * FROM classofvehicle");
     $stmt->execute();
-    $data = $stmt->fetchAll();*/
+    $class = $stmt->fetchAll();
     
-    $stmt1 = $pdo->query("SELECT * FROM systemuser WHERE UserLevel != 1 AND UserLevel != 2");
+    $stmt1 = $pdo->query("SELECT * FROM vehiclecondition");
     $stmt1->execute();
-    $agent = $stmt1->fetchAll();
+    $condition = $stmt1->fetchAll();
+    
+    $stmt2 = $pdo->query("SELECT * FROM brand");
+    $stmt2->execute();
+    $brand = $stmt2->fetchAll();
+    
+    $stmt3 = $pdo->query("SELECT * FROM fualtype");
+    $stmt3->execute();
+    $fualtype = $stmt3->fetchAll();
+    
+ /*   $stmt3 = $pdo->query("SELECT * FROM systemuser WHERE UserLevel != 1 AND UserLevel != 2");
+    $stmt3->execute();
+    $agent = $stmt1->fetchAll();*/
+    
+
     
 ?>
-       <div id="companyModal" class="modal modal-info fade">
-            <div class="modal-dialog modal-lg">
-                <form method="post" id="company_form" enctype="multipart/form-data">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <center><h4 class="modal-title"></h4></center>
-                        </div>
-                        <div class="modal-body">
-                            <div id="alert" class="alert alert-danger text-center" style="margin-top:20px; display:none;">
-                                <button class="close"><span aria-hidden="true">&times;</span></button>
-                                <span id="alert_message"></span>
-                            </div>
-
-                    <div class="row">
-	                    <div class="col-md-12">
-	                        <div class="form-group">
-	                          <label>Company Name</label>
-	                          <input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Enter Company Name">
-	                        </div>
-	              		</div>
-              
-              			<div class="col-md-4">
-		                    <div class="form-group">
-	                          <label>Address Line 1</label>
-	                          <input type="text" class="form-control" id="AddressLine1" name="AddressLine1" placeholder="Enter Address">
-	                        </div>
-	                    
-		                    <div class="form-group">
-	                          <label>Address Line 2</label>
-	                          <input type="text" class="form-control" id="AddressLine2" name="AddressLine2" placeholder="Enter Address">
-	                        </div>
-	                    
-	                    	<div class="form-group">
-	                          <label>Address Line 3</label>
-	                          <input type="text" class="form-control" id="AddressLine3" name="AddressLine3" placeholder="Enter Address">
-	                        </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-	                        <div class="form-group">
-	                          <label>Phone No</label>
-	                          <input type="text" class="form-control" id="PhoneNo" name="PhoneNo" placeholder="Enter Phone No">
-	                        </div> 
-	                        <div class="form-group">
-					          <label>Agent Id</label>
-					            <select class="form-control" id="AgentId" name="AgentId">
-					                <option>Select Agent</option>
-					                <?php foreach ($agent as $row1):?>
-					            		<option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>n
-					                <?php endforeach;?>
-					      		</select>
-					        </div>
-		                    <div class="form-group">
-	                            <label>Company Logo</label>
-	                            <input type="file" class="coverimage form-control" id="image" name="image">
-	                        </div>
-	                    </div>
-                              
-                        <div class="col-md-4"> 
-                        	<div class="form-group">
-	                            <label>Logo Image</label>
-	                            <img id="imgs" style="max-width:180px;margin:10px;"class="img-responsive"/>
-	                        </div>
-				      </div>                 
-                    </div>
-                    <hr/>
-					<div class="row">
-				        <div class="form-group col-md-4">
-				          <label>Latitude</label>
-				          <input type="text" class="form-control" id="Latitude" name="Latitude" placeholder="Enter Latitude">
-				        </div>
-				        
-				        <div class="form-group col-md-4">
-				          <label>Longitude</label>
-				          <input type="text" class="form-control" id="Longitude" name="Longitude" placeholder="Enter Longitude">
-				        </div>
-				      </div>    
-					<hr/>
-					<div class="row">
-						<div class="form-group col-md-4">
-	                      <label>Contact Person</label>
-	                      <input type="text" class="form-control" id="ContactPerson" name="ContactPerson" placeholder="Enter Contact Person">
-	                    </div>
-	                    <div class="form-group col-md-4">
-	                      <label>Mobile No</label>
-	                      <input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="Enter Mobile No">
-	                    </div>
-	                    <div class="form-group col-md-4">
-	                      <label>Email</label>
-	                      <input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email">
-	                    </div>
-	                    
+      <div id="companyModal" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<form method="post" id="post_form" enctype="multipart/form-data">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<center>
+							<h4 class="modal-title"></h4>
+						</center>
 					</div>
-            
-                        
-                    </div>
-                    <div class="modal-footer">
-                            <input type="hidden" name="company_id" id="company_id" />
-							<input type="hidden" name="companyNo" id="companyNo" />
-                            <input type="hidden" name="operation" id="operation" />
-                            <input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
-                            <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
-                        </div>
-                </form>
-            </div>
-                <script src="plugins/image-preview-jquery/jquery.min.js"></script>
-    			<script src="plugins/image-preview-jquery/img.js"></script>
-        </div>
+					<div class="modal-body">
+						<div id="alert" class="alert alert-danger text-center" style="margin-top:20px; display:none;">
+							<button class="close"><span aria-hidden="true">&times;</span></button>
+							<span id="alert_message"></span>
+						</div>
+						<div class="box-group" id="accordion">
+							<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+							<div class="panel box box-primary">
+								<div class="box-header with-border">
+									<h4 class="box-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="collapsed">
+										BASIC VEHICLE INFO
+										</a>
+									</h4>
+								</div>
+								<div id="collapseOne" class="panel-collapse collapse" aria-expanded="true" style="height: 0px;">
+									<div class="box-body">
+										<div class="col-md-8">
+											<div class="form-group">
+												<label>Vehicles Title</label>
+												<input class="form-control" id="VehiclesTitle" name="VehiclesTitle" type="text" placeholder="Enter Vehicles Title">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Price</label>
+												<input class="form-control" id="Price" name="Price" type="text" placeholder="Enter Price">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Vehicle Class</label>
+												<select class="form-control" id="VehicleClass" name="VehicleClass">
+													<option value="-1">Select Class</option>
+													<?php foreach ($class as $row1):?>
+													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
+													<?php endforeach;?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Vehicle Condition</label>
+												<select class="form-control" id="VehicleCondition" name="VehicleCondition">
+													<option value="-1">Select Condition</option>
+													<?php foreach ($condition as $row1):?>
+													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
+													<?php endforeach;?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Brand</label>
+												<select class="form-control" id="Brand" name="Brand">
+													<option value="-1">Select Brand</option>
+													<?php foreach ($brand as $row1):?>
+													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
+													<?php endforeach;?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Decription</label>
+												<textarea class="form-control" rows="4" id="Decription" name="Decription" placeholder="Type Vehicle Description (Maximun 500 Characters)"></textarea>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Model Year</label>
+												<select class="form-control" id="Model" name="Model">
+													<option value="-1">Select Model</option>
+													<?php $currently_selected = date('Y'); 
+													  $earliest_year = $currently_selected-30; 
+													  $latest_year = date('Y'); 
+													  foreach ( range( $latest_year, $earliest_year ) as $i ) {
+													    echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
+													  }
+													?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>No. of Owners</label>
+												<select class="form-control" id="Model" name="Model">
+													<option value="1">-------</option>
+													<?php $currently_selected = date('Y'); 
+													  $earliest_year = $currently_selected-30; 
+													  $latest_year = date('Y'); 
+													  foreach ( range( 1, 10 ) as $i ) {
+													    echo '<option value="'.$i.'">'.$i.'</option>';
+													  }
+													?>
+												</select>
+											</div>
+										</div>									
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Fuel Type</label>
+												<select class="form-control" id="Brand" name="Brand">
+													<option value="-1">Select Fuel Type</option>
+													<?php foreach ($fualtype as $row2):?>
+													<option value='<?= $row2["Id"] ?>'><?= $row2["Name"] ?></option>
+													<?php endforeach;?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>KMs Driven</label>
+												<input type="text" class="form-control" id="kmsDriven" name="kmsDriven" placeholder="Enter Kilometers Driven" 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel box box-danger">
+								<div class="box-header with-border">
+									<h4 class="box-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">
+										TECHNICAL SPECIFICATION
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="box-body">
+										<div class="form-group col-md-4">
+						              <label class="control-label">Engine Type</label>
+						              <input class="form-control white_bg" id="engien" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Engine Description</label>
+						              <input class="form-control white_bg" id="engien-description" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">No. of Cylinders</label>
+						              <input class="form-control white_bg" id="cylinders" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Mileage-City</label>
+						              <input class="form-control white_bg" id="mileage" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Mileage-Highway</label>
+						              <input class="form-control white_bg" id="mileage-h" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Fuel Tank Capacity</label>
+						              <input class="form-control white_bg" id="capacity" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Seating Capacity</label>
+						              <input class="form-control white_bg" id="s-capacity" type="text">
+						            </div>
+						            <div class="form-group col-md-4">
+						              <label class="control-label">Transmission Type</label>
+						              <input class="form-control white_bg" id="Transmission" type="text">
+						            </div>
+									</div>
+								</div>
+							</div>
+							<div class="panel box box-success">
+								<div class="box-header with-border">
+									<h4 class="box-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="" aria-expanded="false">
+										ACCESSORIES
+										</a>
+									</h4>
+								</div>
+								<div id="collapseThree" class="panel-collapse collapse in" aria-expanded="false" style="">
+									<div class="box-body">
+									
+									<div class="form-group col-md-4">
+						                <input id="air_conditioner" type="checkbox">
+						                <label for="air_conditioner">Air Conditioner</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="door" type="checkbox">
+						                <label for="door">Power Door Locks</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="antiLock" type="checkbox">
+						                <label for="antiLock">AntiLock Braking System</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="brake" type="checkbox">
+						                <label for="brake">Brake Assist</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="steering" type="checkbox">
+						                <label for="steering">Power Steering</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="airbag" type="checkbox">
+						                <label for="airbag">Driver Airbag</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="windows" type="checkbox">
+						                <label for="windows">Power Windows</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="passenger_airbag" type="checkbox">
+						                <label for="passenger_airbag">Passenger Airbag</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="player" type="checkbox">
+						                <label for="player">CD Player</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="sensor" type="checkbox">
+						                <label for="sensor">Crash Sensor</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="seats" type="checkbox">
+						                <label for="seats">Leather Seats</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="engine_warning" type="checkbox">
+						                <label for="engine_warning">Engine Check Warning</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="locking" type="checkbox">
+						                <label for="locking">Central Locking</label>
+						              </div>
+						              <div class="form-group col-md-4">
+						                <input id="headlamps" type="checkbox">
+						                <label for="headlamps">Automatic Headlamps</label>
+						              </div>
+															
+															
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+										<div class="form-group col-md-4">
+											<label>Contact Person</label>
+											<input type="text" class="form-control" id="ContactPerson" name="ContactPerson" placeholder="Enter Contact Person">
+										</div>
+										<div class="form-group col-md-4">
+											<label>Mobile No</label>
+											<input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="Enter Mobile No">
+										</div>
+										<div class="form-group col-md-4">
+											<label>Email</label>
+											<input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email">
+										</div>
+										
+										<div class="form-group">
+												<label>Agent Id</label>
+												<select class="form-control" id="AgentId" name="AgentId">
+													<option>Select Agent</option>
+													<?php foreach ($agent as $row1):?>
+													<option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>
+													
+													<?php endforeach;?>
+												</select>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="company_id" id="company_id" />
+						<input type="hidden" name="companyNo" id="companyNo" />
+						<input type="hidden" name="operation" id="operation" />
+						<input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
+						<button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+					</div>
+			</form>
+			</div>
+			<script src="plugins/image-preview-jquery/jquery.min.js"></script>
+			<script src="plugins/image-preview-jquery/img.js"></script>
+		</div>
       <!-- Scripts Area -->
       <?php
     include("common/scripts.php");
@@ -289,16 +504,16 @@ if (!isset($_SESSION['UserName'])) {
 			$('#imgs').attr("src", "");
 		});
 
-		var dataTable = $('#company_data').DataTable({
+		var dataTable = $('#post_data').DataTable({
 			"processing": true,
 			"serverSide": true,
 			"order": [],
 			"ajax": {
-				url: "company_fetch.php",
+				url: "post_fetch.php",
 				type: "POST"
 			},
 			"columnDefs": [{
-				"targets": [0,1, 19, 20, 21],
+				"targets": [0],
 				"orderable": false,
 			}, ],
 		});

@@ -9,9 +9,9 @@ $(document).ready(function($){
 	             reader.readAsDataURL(image);
 	             reader.onloadend = function(e) {
 	            	img_src = e.target.result; 
-					//html = "<img class='img-thumbnail' style='width:300px;margin:20px;' src='"+img_src+"'>";
-	            	//$('#image_container').append( html );
-					$('#imgs').attr('src',img_src);
+					html = "<img class='img-thumbnail' style='width:300px;margin:20px;' src='"+img_src+"'>";
+	            	$('#image_container').append( html );
+					//$('#imgs').attr('src',img_src);
 	             };
         	 } 
 		});

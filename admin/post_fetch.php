@@ -9,7 +9,7 @@ $output = array();
 
 if($currentuser==='1')//Super Admin
 {
-	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,po.EngineType,col.Name AS Colour,col.ColourCode, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName
+	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,col.Name AS Colour, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName,col.ColourCode
 		FROM posts po 
 		LEFT JOIN company co ON co.Id = po.companyId
 		LEFT JOIN systemuser su ON su.Id = po.AgentId
@@ -22,7 +22,7 @@ if($currentuser==='1')//Super Admin
 }
 else if($currentuser==='2')//System Admin
 {
-	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,po.EngineType,col.Name AS Colour,col.ColourCode, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName
+	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,col.Name AS Colour, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName,col.ColourCode
 		FROM posts po 
 		LEFT JOIN company co ON co.Id = po.companyId
 		LEFT JOIN systemuser su ON su.Id = po.AgentId
@@ -35,7 +35,7 @@ else if($currentuser==='2')//System Admin
 }
 else if($currentuser==='3')//Level 1 User
 {
-	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,po.EngineType,col.Name AS Colour,col.ColourCode, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName
+	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,col.Name AS Colour, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName,col.ColourCode
 		FROM posts po 
 		LEFT JOIN company co ON co.Id = po.companyId
 		LEFT JOIN systemuser su ON su.Id = po.AgentId
@@ -48,7 +48,7 @@ else if($currentuser==='3')//Level 1 User
 }
 else if($currentuser==='4')//Level 2 User
 {
-	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,po.EngineType,col.Name AS Colour,col.ColourCode, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName
+	$query .='SELECT po.Id, po.PostId,po.PostTitle,br.Name AS Brand,cl.Name AS ClassOfVehicle,ve.Name AS VehicleCondition,col.Name AS Colour, fu.Name AS FualType, tr.Name AS TransmissionType,po.ModelYear, co.CompanyId, co.CompanyName, su.UserId as AgentNo, po.SubAgentName,col.ColourCode
 		FROM posts po 
 		LEFT JOIN company co ON co.Id = po.companyId
 		LEFT JOIN systemuser su ON su.Id = po.AgentId
@@ -62,37 +62,34 @@ else if($currentuser==='4')//Level 2 User
 else //Site User
 {
 	$query .=' ';
-}*/
+}
 
 
 if(isset($_POST["search"]["value"]))
 {
-	$query .= '(co.CompanyId LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.AgentId LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.ContactPerson LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.PhoneNo LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.Mobile LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.Email LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.StatusUpdatedBy LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.StatusUpdatedDate LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.CreatedBy LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR co.CreatedDate LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= '(po.PostId LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR po.PostTitle LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR br.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR cl.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR ve.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR col.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR fu.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR tr.Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR po.ModelYear LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR co.CompanyId LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR su.UserId LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR po.SubAgentName LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR co.CompanyName LIKE "%'.$_POST["search"]["value"].'%") ';
 }
 
-	//$query .='and su.Status != 3 and su.UserId!="'.$currentuserid.'" ';
-
-
-
-
-
 if(isset($_POST["order"]))
 {
-	$query .= 'ORDER BY '.$_POST['order']['0']['column'].' '.$_POST['order']['0']['dir'].' ';
+	$orderCol =1+(int)$_POST['order']['0']['column'];
+	$query .= 'ORDER BY '.$orderCol.' '.$_POST['order']['0']['dir'].' ';
 }
 else
 {
-	$query .= 'ORDER BY co.Id DESC ';
+	$query .= 'ORDER BY po.Id DESC ';
 }
 if($_POST["length"] != -1)
 {
@@ -111,8 +108,8 @@ $activeTitle='';
 $hidden='';
 foreach($result as $row)
 {
-	$image = '';
-	$files = glob('images/companyLogo/'.$row["CompanyId"].'.*');
+	/*$image = '';
+	$files = glob('images/companyLogo/'.$row["PostId"].'.*');
  	if($files !=NULL)
  	{
 		foreach ($files as $item) {
@@ -122,30 +119,27 @@ foreach($result as $row)
 	else
 	{
 		$image = '';
-	}
+	}*/
+
 
 	$sub_array = array();
 	$sub_array[] = $row["Id"];
-	$sub_array[] = $image;
+	//$sub_array[] = $image;
+	$sub_array[] = $row["PostId"];
+	$sub_array[] = $row["PostTitle"];
+	$sub_array[] = $row["Brand"];
+	$sub_array[] = $row["ClassOfVehicle"];
+	$sub_array[] = $row["VehicleCondition"];
+	$sub_array[] = '<span href="#" style="display: inline-block; height: 20px; width: 20px; background-color:'.$row["ColourCode"].';"> </span> '.$row["Colour"];
+	$sub_array[] = $row["FualType"];
+	$sub_array[] = $row["TransmissionType"];
+	$sub_array[] = $row["ModelYear"];
 	$sub_array[] = $row["CompanyId"];
-	$sub_array[] = $row["AgentId"];
 	$sub_array[] = $row["CompanyName"];
-	$sub_array[] = $row["AddressLine1"];
-	$sub_array[] = $row["AddressLine2"];
-	$sub_array[] = $row["AddressLine3"];
-	$sub_array[] = $row["ContactPerson"];
-	$sub_array[] = $row["PhoneNo"];
-	$sub_array[] = $row["Mobile"];
-	$sub_array[] = $row["Email"];
-	$sub_array[] = $row["Latitude"];
-	$sub_array[] = $row["Longitude"];
-	$sub_array[] = $row["Status"];
-	$sub_array[] = $row["StatusUpdatedBy"];
-	$sub_array[] = $row["StatusUpdatedDate"];
-	$sub_array[] = $row["CreatedBy"];
-	$sub_array[] = $row["CreatedDate"];
+	$sub_array[] = $row["AgentNo"];
+	$sub_array[] = $row["SubAgentName"];
 	
-	
+/*	
 	if($row["StatusId"]==='1')
 	{
 		$hidden="";
@@ -169,14 +163,14 @@ foreach($result as $row)
 	$sub_array[] = '<button class="'.$activeClass.$hidden.'" type="button" name="active" value="'.$activeTitle.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-off"></span> '.$activeTitle.'</button>';
 	$sub_array[] = '<button class="btn btn-warning btn-sm update'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-edit"></span> Edit</button>';
 	$sub_array[] = '<button class="btn btn-danger btn-sm delete'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-trash"></span> Delete</button>';
-
+*/
 	$data[] = $sub_array;
 	
 }
 $output = array(
 	"draw"				=>	intval($_POST["draw"]),
 	"recordsTotal"		=> 	$filtered_rows,
-	"recordsFiltered"	=>	get_total_company_records(),
+	"recordsFiltered"	=>	get_total_post_records(),
 	"data"				=>	$data
 );
 echo json_encode($output);
