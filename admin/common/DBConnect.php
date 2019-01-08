@@ -35,7 +35,17 @@ $dbname     = "myvehicle.lk";
 try
 {
     $con = mysqli_connect($servername, $username, $password, $dbname);
-    //echo "Connected successfully";
+    $con = new mysqli($servername, $username, $password, $dbname);
+    
+    if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+	}
+	else
+	{
+	//echo "Connected successfully";	
+	}
+
 }
 catch (Exception $e)
 {

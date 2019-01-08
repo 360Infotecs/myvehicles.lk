@@ -97,44 +97,19 @@ if($_POST["length"] != -1)
 }
 
 //echo '<script>console.log('.$query.')</script>';
-$statement=mysqli_query($con, $query);
 
+$response =mysqli_query($con,$query);
 
- 
+$result= mysqli_fetch_all($response,MYSQLI_ASSOC);
 
-//$statement = $con->prepare($query);
-//$statement->execute();
-$result = $statement->fetchAll();
 
 $data = array();
-$filtered_rows = mysqli_num_rows($statement);
+$filtered_rows = mysqli_num_rows($response);
 $activeClass='';
 $activeTitle='';
 $hidden='';
 
-/*while ($row = $statement->fetch_assoc())
- {
- 		$sub_array = array();
-	$sub_array[] = $row["Id"];
-	//$sub_array[] = $image;
-	$sub_array[] = $row["PostId"];
-	$sub_array[] = $row["PostTitle"];
-	$sub_array[] = $row["Brand"];
-	$sub_array[] = $row["ClassOfVehicle"];
-	$sub_array[] = $row["VehicleCondition"];
-	$sub_array[] = '<span href="#" style="display: inline-block; height: 20px; width: 20px; background-color:'.$row["ColourCode"].';"> </span> '.$row["Colour"];
-	$sub_array[] = $row["FualType"];
-	$sub_array[] = $row["TransmissionType"];
-	$sub_array[] = $row["ModelYear"];
-	$sub_array[] = $row["CompanyId"];
-	$sub_array[] = $row["CompanyName"];
-	$sub_array[] = $row["AgentNo"];
-	$sub_array[] = $row["SubAgentName"];
-	
-	$data[] = $sub_array;
- }*/
- //exit;
- 
+
  
 foreach($result as $row)
 {
@@ -167,7 +142,7 @@ foreach($result as $row)
 	$sub_array[] = $row["CompanyId"];
 	$sub_array[] = $row["CompanyName"];
 	$sub_array[] = $row["AgentNo"];
-	$sub_array[] = $row["SubAgentName"];*/
+	$sub_array[] = $row["SubAgentName"];
 	
 	$data[] = $sub_array;
 	

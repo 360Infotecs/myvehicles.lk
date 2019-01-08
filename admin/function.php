@@ -96,6 +96,7 @@ function get_total_post_records()
 	$statement = mysqli_query($con, $sql);//$con->prepare($sql);
 	//$statement->execute();
 	//$result = $statement->fetchAll();
+	//$result= mysqli_fetch_all($statement,MYSQLI_ASSOC);
 	
 	return mysqli_num_rows($statement);
 }
