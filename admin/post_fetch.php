@@ -97,32 +97,24 @@ if($_POST["length"] != -1)
 }
 
 //echo '<script>console.log('.$query.')</script>';
+$statement=mysqli_query($con, $query);
 
-$statement = $pdo->prepare($query);
-$statement->execute();
+
+ 
+
+//$statement = $con->prepare($query);
+//$statement->execute();
 $result = $statement->fetchAll();
+
 $data = array();
-$filtered_rows = $statement->rowCount();
+$filtered_rows = mysqli_num_rows($statement);
 $activeClass='';
 $activeTitle='';
 $hidden='';
-foreach($result as $row)
-{
-	/*$image = '';
-	$files = glob('images/companyLogo/'.$row["PostId"].'.*');
- 	if($files !=NULL)
- 	{
-		foreach ($files as $item) {
-			$image ='<img src="'.$item.'" class="img-thumbnail" style="max-width:50px; height:auto;"/>';
-		}
-	}
-	else
-	{
-		$image = '';
-	}*/
 
-
-	$sub_array = array();
+/*while ($row = $statement->fetch_assoc())
+ {
+ 		$sub_array = array();
 	$sub_array[] = $row["Id"];
 	//$sub_array[] = $image;
 	$sub_array[] = $row["PostId"];
@@ -139,31 +131,44 @@ foreach($result as $row)
 	$sub_array[] = $row["AgentNo"];
 	$sub_array[] = $row["SubAgentName"];
 	
-/*	
-	if($row["StatusId"]==='1')
+	$data[] = $sub_array;
+ }*/
+ //exit;
+ 
+ 
+foreach($result as $row)
+{
+
+	/*$image = '';
+	$files = glob('images/companyLogo/'.$row["PostId"].'.*');
+ 	if($files !=NULL)
+ 	{
+		foreach ($files as $item) {
+			$image ='<img src="'.$item.'" class="img-thumbnail" style="max-width:50px; height:auto;"/>';
+		}
+	}
+	else
 	{
-		$hidden="";
-		$activeClass="btn btn-primary btn-sm activate";
-		$activeTitle="Disable";
-	}
-	else if($row["StatusId"]==='2')
-	{
-		$hidden="";
-		$activeClass="btn btn-info btn-sm activate";
-		$activeTitle="Activate";
-		
-	}
-	else{
-		$hidden=" hidden";
-		$activeClass="btn btn-info btn-sm activate";
-		$activeTitle="Deleted";
-		
-		
-	}
-	$sub_array[] = '<button class="'.$activeClass.$hidden.'" type="button" name="active" value="'.$activeTitle.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-off"></span> '.$activeTitle.'</button>';
-	$sub_array[] = '<button class="btn btn-warning btn-sm update'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-edit"></span> Edit</button>';
-	$sub_array[] = '<button class="btn btn-danger btn-sm delete'.$hidden.'" id="'.$row["Id"].'"><span class="glyphicon glyphicon-trash"></span> Delete</button>';
-*/
+		$image = '';
+	}*/
+
+	$sub_array = array();
+	$sub_array[] = $row["Id"];
+	//$sub_array[] = $image;
+	$sub_array[] = $row["PostId"];
+	$sub_array[] = $row["PostTitle"];
+	$sub_array[] = $row["Brand"];
+	$sub_array[] = $row["ClassOfVehicle"];
+	$sub_array[] = $row["VehicleCondition"];
+	$sub_array[] = '<span href="#" style="display: inline-block; height: 20px; width: 20px; background-color:'.$row["ColourCode"].';"> </span> '.$row["Colour"];
+	$sub_array[] = $row["FualType"];
+	$sub_array[] = $row["TransmissionType"];
+	$sub_array[] = $row["ModelYear"];
+	$sub_array[] = $row["CompanyId"];
+	$sub_array[] = $row["CompanyName"];
+	$sub_array[] = $row["AgentNo"];
+	$sub_array[] = $row["SubAgentName"];*/
+	
 	$data[] = $sub_array;
 	
 }

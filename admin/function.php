@@ -8,7 +8,7 @@ $currentuserid=$_SESSION['UserId'];
 
 function get_total_user_records()
 {
-	global $pdo, $user_level, $currentuserid;
+	global $con, $user_level, $currentuserid;
 	//$sql = 'SELECT * FROM systemuser';
 	$sql = 'SELECT * FROM systemuser where Status != 3 and UserLevel=5 and CreatedBy='.$currentuserid;
 /*    switch ($user_level) {
@@ -28,7 +28,7 @@ function get_total_user_records()
         $sql = 'SELECT * FROM systemuser where UserId!='.$currentuserid;
 }*/
     
-	$statement = $pdo->prepare($sql);
+	$statement = mysqli_query($con, $sql);//$con->prepare($sql);
 	$statement->execute();
 	$result = $statement->fetchAll();
 	
@@ -41,7 +41,7 @@ function get_total_user_records()
 
 function get_total_company_records()
 {
-		global $pdo, $user_level, $currentuserid;
+		global $con, $user_level, $currentuserid;
 		//$sql = 'SELECT * FROM company';
 		$sql = '';
 	    switch ($user_level) {
@@ -61,7 +61,7 @@ function get_total_company_records()
 		        $sql = 'SELECT * FROM company where Status != 3 and CreatedBy='.$currentuserid;
 		}
     
-	$statement = $pdo->prepare($sql);
+	$statement = mysqli_query($con, $sql);//$con->prepare($sql);
 	$statement->execute();
 	$result = $statement->fetchAll();
 	
@@ -73,7 +73,7 @@ function get_total_company_records()
 
 function get_total_post_records()
 {
-		global $pdo, $user_level, $currentuserid;
+		global $con, $user_level, $currentuserid;
 
 		$sql = '';
 	    switch ($user_level) {
@@ -93,11 +93,11 @@ function get_total_post_records()
 		        $sql = 'SELECT * FROM posts where Status != 3 and CreatedBy='.$currentuserid;
 		}
     
-	$statement = $pdo->prepare($sql);
-	$statement->execute();
-	$result = $statement->fetchAll();
+	$statement = mysqli_query($con, $sql);//$con->prepare($sql);
+	//$statement->execute();
+	//$result = $statement->fetchAll();
 	
-	return $statement->rowCount();
+	return mysqli_num_rows($statement);
 }
 //Post End
 ?>
