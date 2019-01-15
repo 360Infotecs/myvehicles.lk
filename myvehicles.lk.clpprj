@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="E:\xampp\htdocs\myvehicles.lk\myvehicles.lk.clpprj">
 	<settings><PM_URL><![CDATA[http://localhost:8080/myvehicles.lk/]]></PM_URL><PM_HOME_URL><![CDATA[http://localhost:8080/myvehicles.lk/]]></PM_HOME_URL><PM_LIBS><![CDATA[]]></PM_LIBS><PM_FTP_CONNECTION><![CDATA[]]></PM_FTP_CONNECTION><PM_FTP_DIR><![CDATA[]]></PM_FTP_DIR><PM_FTP_UPLOAD_ON_SAVE><![CDATA[INT:0]]></PM_FTP_UPLOAD_ON_SAVE></settings><removed value=";D:\Xampp\htdocs\myvehicles.lk\admin\company_registration.php;D:\Xampp\htdocs\myvehicles.lk\admin\fetch.php;"/><added value=""/><lastopfiles>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\DataTable\css\bootstrap.min.css"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\DataTable\css\dataTables.bootstrap.min.css"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch.php"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php"/>
 	</lastopfiles>
 	<errors version="5.11">
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\common\functionClass.php">
@@ -70,7 +65,7 @@
 			<error val="9;26;9;27;2501;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php">
-			<error val="32;280;56;280;2002;1;"/>
+			<error val="32;476;56;476;2002;1;"/>
 		</errfile>
 		<errfile name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php">
 			<error val="38;323;62;323;2002;1;"/>
@@ -90,6 +85,8 @@
 	</yiidata>
 	<todoblock>
 	</todoblock>
+	<dbgurls>
+	</dbgurls>
 	<filescache>
 		<file name="E:\xampp\htdocs\myvehicles.lk\pages\assets\switcher\js\switcher.js" crc="1485873886"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\pages\assets\switcher\css\switcher.css" crc="1485873884"/>
@@ -1039,7 +1036,7 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\input-mask\jquery.inputmask.extensions.js" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\input-mask\jquery.inputmask.date.extensions.js" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\image-preview-jquery\jquery.min.js" crc="1541920266"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\image-preview-jquery\img.js" crc="1541945496"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\image-preview-jquery\img.js" crc="1546449073"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\iCheck\square\yellow.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\iCheck\square\square.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\plugins\iCheck\square\red.css" crc="1439731180"/>
@@ -1607,7 +1604,7 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\skin-black-light.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\_all-skins.min.css" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\skins\_all-skins.css" crc="1439731180"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\styleOverwrite.css" crc="1545750675"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\styleOverwrite.css" crc="1546449072"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\jquery-confirm.min.css" crc="1544287897"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\jquery-confirm.css" crc="1544287897"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\dist\css\AdminLTE.min.css" crc="1439731180"/>
@@ -1633,14 +1630,14 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\sms.php" crc="1542997314"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\sitefooter.php" crc="1541836204"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\scripts.php" crc="1544290538"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar.php" crc="1545928015"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar.php" crc="1546449072"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\leftsidebar - Copy.php" crc="1541835690"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\header.php" crc="1545929141"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\header.php" crc="1546449072"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\head.php" crc="1544290538"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\functions.php" crc="1543777570"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\DBConnect.php" crc="1545927657"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\DBConnect.php" crc="1546973269"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\customsidebar.php" crc="1541836450"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\admin.php" crc="1545928535"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\common\admin.php" crc="1546449072"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-yellow.less" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-yellow-light.less" crc="1439731180"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\build\less\skins\skin-red.less" crc="1439731180"/>
@@ -1738,21 +1735,21 @@
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\testinsert.php" crc="1541850006"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\test.php" crc="1543067810"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\rnd.php" crc="1541937130"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php" crc="1546104980"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_insert.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch_single.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch.php" crc="1546104922"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_delete.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_activation.php" crc="1545675568"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php" crc="1545927437"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_manager.php" crc="1547060958"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_insert.php" crc="1546449073"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch_single.php" crc="1546449073"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_fetch.php" crc="1546973508"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_delete.php" crc="1546449073"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\post_activation.php" crc="1546449073"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\master_settings.php" crc="1546449073"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\logout.php" crc="1542894284"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login.php" crc="1545928900"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login.php" crc="1546449073"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\login - Copy.php" crc="1542880528"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\index.php" crc="1542897194"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\img.php" crc="1541929692"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php" crc="1546099829"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\function.php" crc="1546974545"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\fetch.php" crc="1543517228"/>
-		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_manager.php" crc="1545928504"/>
+		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_manager.php" crc="1546449072"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_insert.php" crc="1545675568"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_fetch_single.php" crc="1545675568"/>
 		<file name="E:\xampp\htdocs\myvehicles.lk\admin\company_fetch.php" crc="1545675568"/>

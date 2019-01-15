@@ -193,16 +193,15 @@ if (!isset($_SESSION['UserName'])) {
 							<span id="alert_message"></span>
 						</div>
 						<div class="box-group" id="accordion">
-							<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
 							<div class="panel box box-primary">
 								<div class="box-header with-border">
 									<h4 class="box-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="collapsed">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
 										BASIC VEHICLE INFO
 										</a>
 									</h4>
 								</div>
-								<div id="collapseOne" class="panel-collapse collapse" aria-expanded="true" style="height: 0px;">
+								<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 									<div class="box-body">
 										<div class="col-md-8">
 											<div class="form-group">
@@ -212,33 +211,27 @@ if (!isset($_SESSION['UserName'])) {
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<label>Price</label>
-												<input class="form-control" id="Price" name="Price" type="text" placeholder="Enter Price">
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
 												<label>Vehicle Class</label>
 												<select class="form-control" id="VehicleClass" name="VehicleClass">
-													<option value="-1">Select Class</option>
+													<option value="-1">Select</option>
 													<?php foreach ($class as $row1):?>
 													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
 													<?php endforeach;?>
 												</select>
 											</div>
-										</div>
-										<div class="col-md-4">
+										</div>										
+										<div class="col-md-3">
 											<div class="form-group">
 												<label>Vehicle Condition</label>
 												<select class="form-control" id="VehicleCondition" name="VehicleCondition">
-													<option value="-1">Select Condition</option>
+													<option value="-1">Select</option>
 													<?php foreach ($condition as $row1):?>
 													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
 													<?php endforeach;?>
 												</select>
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-3">
 											<div class="form-group">
 												<label>Brand</label>
 												<select class="form-control" id="Brand" name="Brand">
@@ -246,6 +239,21 @@ if (!isset($_SESSION['UserName'])) {
 													<?php foreach ($brand as $row1):?>
 													<option value='<?= $row1["Id"] ?>'><?= $row1["Name"] ?></option>
 													<?php endforeach;?>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Price</label>
+												<input class="form-control" id="Price" name="Price" type="text" placeholder="Enter Price">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Negotiable</label>
+												<select class="form-control" id="Negotiable" name="Negotiable">
+													<option value="0">Yes</option>
+													<option value="1">No</option>
 												</select>
 											</div>
 										</div>
@@ -284,7 +292,7 @@ if (!isset($_SESSION['UserName'])) {
 													?>
 												</select>
 											</div>
-										</div>									
+										</div>
 										<div class="col-md-3">
 											<div class="form-group">
 												<label>Fuel Type</label>
@@ -299,9 +307,9 @@ if (!isset($_SESSION['UserName'])) {
 										<div class="col-md-3">
 											<div class="form-group">
 												<label>KMs Driven</label>
-												<input type="text" class="form-control" id="kmsDriven" name="kmsDriven" placeholder="Enter Kilometers Driven" 
+												<input type="text" class="form-control" id="kmsDriven" name="kmsDriven" placeholder="Enter Kilometers Driven"/> 
 											</div>
-										</div>
+										</div> 
 									</div>
 								</div>
 							</div>
@@ -316,52 +324,51 @@ if (!isset($_SESSION['UserName'])) {
 								<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 									<div class="box-body">
 										<div class="form-group col-md-4">
-						              <label class="control-label">Engine Type</label>
-						              <input class="form-control white_bg" id="engien" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Engine Description</label>
-						              <input class="form-control white_bg" id="engien-description" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">No. of Cylinders</label>
-						              <input class="form-control white_bg" id="cylinders" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Mileage-City</label>
-						              <input class="form-control white_bg" id="mileage" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Mileage-Highway</label>
-						              <input class="form-control white_bg" id="mileage-h" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Fuel Tank Capacity</label>
-						              <input class="form-control white_bg" id="capacity" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Seating Capacity</label>
-						              <input class="form-control white_bg" id="s-capacity" type="text">
-						            </div>
-						            <div class="form-group col-md-4">
-						              <label class="control-label">Transmission Type</label>
-						              <input class="form-control white_bg" id="Transmission" type="text">
-						            </div>
+										  <label class="control-label">Engine Type</label>
+										  <input class="form-control white_bg" id="engien" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Engine Description</label>
+										  <input class="form-control white_bg" id="engien-description" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">No. of Cylinders</label>
+										  <input class="form-control white_bg" id="cylinders" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Mileage-City</label>
+										  <input class="form-control white_bg" id="mileage" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Mileage-Highway</label>
+										  <input class="form-control white_bg" id="mileage-h" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Fuel Tank Capacity</label>
+										  <input class="form-control white_bg" id="capacity" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Seating Capacity</label>
+										  <input class="form-control white_bg" id="s-capacity" type="text">
+										</div>
+										<div class="form-group col-md-4">
+										  <label class="control-label">Transmission Type</label>
+										  <input class="form-control white_bg" id="Transmission" type="text">
+										</div> 
 									</div>
 								</div>
 							</div>
 							<div class="panel box box-success">
 								<div class="box-header with-border">
 									<h4 class="box-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="" aria-expanded="false">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">
 										ACCESSORIES
 										</a>
 									</h4>
 								</div>
-								<div id="collapseThree" class="panel-collapse collapse in" aria-expanded="false" style="">
+								<div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 									<div class="box-body">
-									
-									<div class="form-group col-md-4">
+									  <div class="form-group col-md-4">
 						                <input id="air_conditioner" type="checkbox">
 						                <label for="air_conditioner">Air Conditioner</label>
 						              </div>
@@ -416,60 +423,34 @@ if (!isset($_SESSION['UserName'])) {
 						              <div class="form-group col-md-4">
 						                <input id="headlamps" type="checkbox">
 						                <label for="headlamps">Automatic Headlamps</label>
-						              </div>
-															
-															
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-										<div class="form-group col-md-4">
-											<label>Contact Person</label>
-											<input type="text" class="form-control" id="ContactPerson" name="ContactPerson" placeholder="Enter Contact Person">
-										</div>
+						              </div> 
+									</div>
+								</div>
+							</div>
+							<div class="panel box box-info">
+								<div class="box-header with-border">
+									<h4 class="box-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed" aria-expanded="true">
+										CONTECT INFO
+										</a>
+									</h4>
+								</div>
+								<div id="collapseFour" class="panel-collapse collapse" aria-expanded="true" style="height: 0px;">
+									<div class="box-body">
 										<div class="form-group col-md-4">
 											<label>Mobile No</label>
 											<input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="Enter Mobile No">
 										</div>
+						
 										<div class="form-group col-md-4">
-											<label>Email</label>
-											<input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email">
-										</div>
-										
-										<div class="form-group">
-												<label>Agent Id</label>
-												<select class="form-control" id="AgentId" name="AgentId">
-													<option>Select Agent</option>
-													<?php foreach ($agent as $row1):?>
-													<option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>
-													
-													<?php endforeach;?>
-												</select>
-											</div>
+											<label>Agent Id</label>
+											<select class="form-control" id="AgentId" name="AgentId">
+												<option>Select Agent</option>
+												<?php foreach ($agent as $row1):?>
+												<option value='<?= $row1["Id"] ?>'><?= $row1["UserName"] ?> ( <?= $row1["UserId"] ?> )</option>
+												<?php endforeach;?>
+											</select>
+										</div> 
 									</div>
 								</div>
 							</div>
@@ -479,8 +460,8 @@ if (!isset($_SESSION['UserName'])) {
 						<input type="hidden" name="company_id" id="company_id" />
 						<input type="hidden" name="companyNo" id="companyNo" />
 						<input type="hidden" name="operation" id="operation" />
-						<input type="submit" name="action" id="action" class="btn btn-outline" value="Add" />
-						<button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+						<input type="submit" name="action" id="action" class="btn btn-primary" value="Add" />
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 			</form>
 			</div>
